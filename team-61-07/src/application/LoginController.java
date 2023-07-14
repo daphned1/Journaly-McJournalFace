@@ -23,11 +23,11 @@ public class LoginController {
 	@FXML
 	private PasswordField passwordField;
 	@FXML
-    private TextField oldPass;
+    private PasswordField oldPass;
     @FXML
-    private TextField newPass;
+    private PasswordField newPass;
     @FXML
-    private TextField repeatNewPass;
+    private PasswordField repeatNewPass;
     @FXML
     private TextField securityQuestion;
     @FXML
@@ -52,7 +52,7 @@ public class LoginController {
     @FXML
     void submitClicked(ActionEvent event) throws IOException {
     	// Checks if the old password, security question, and answer question textfield is not empty. If not, proceed with changing password and save to file
-    	if (oldPass.getText().isEmpty() == false && securityQuestion.getText().isEmpty() == false && ansQuestion.getText().isEmpty() == false) {
+    	if (oldPass.getText().equals("p") && oldPass.getText().isEmpty() == false && securityQuestion.getText().isEmpty() == false && ansQuestion.getText().isEmpty() == false) {
     		user = new Account(newPass.getText(), securityQuestion.getText(), ansQuestion.getText());
     		fileManager = new FlatFile();
     		Account defaultAccount = new Account();//creating default account
@@ -76,7 +76,7 @@ public class LoginController {
     }
     
     @FXML
-    void okClicked(ActionEvent event) throws IOException {
+    void cancelClicked(ActionEvent event) throws IOException {
     	URL urlRoot = getClass().getClassLoader().getResource("views/login.fxml");
 		Parent root = FXMLLoader.load(urlRoot);
 		
@@ -86,6 +86,29 @@ public class LoginController {
 		stage.setTitle(title);
 		stage.show();
     }
-
+    
+    @FXML
+    void okClicked(ActionEvent event) throws IOException {
+    	URL urlRoot = getClass().getClassLoader().getResource("views/homepage.fxml");
+		Parent root = FXMLLoader.load(urlRoot);
+		
+		Stage stage= (Stage) ((Node) event.getSource()).getScene().getWindow();
+		Scene scene = new Scene(root, 600, 400);
+		stage.setScene(scene);
+		stage.setTitle(title);
+		stage.show();
+    }
+    
+    @FXML
+    void logoutClicked(ActionEvent event) throws IOException {
+    	URL urlRoot = getClass().getClassLoader().getResource("views/login.fxml");
+		Parent root = FXMLLoader.load(urlRoot);
+		
+		Stage stage= (Stage) ((Node) event.getSource()).getScene().getWindow();
+		Scene scene = new Scene(root, 600, 400);
+		stage.setScene(scene);
+		stage.setTitle(title);
+		stage.show();
+    }
 
 }
