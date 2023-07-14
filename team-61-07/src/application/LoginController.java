@@ -15,8 +15,6 @@ import javafx.stage.Stage;
 
 public class LoginController {
 	
-	private Stage stage;
-	private Scene scene;
 	private Account user;
 	private final static String title = "Journaly McJournalFace";
 	final String FILE_NAME = "JMJAccount";
@@ -42,8 +40,8 @@ public class LoginController {
     		URL urlRoot = getClass().getClassLoader().getResource("views/changePass.fxml");
 			Parent root = FXMLLoader.load(urlRoot);
 			
-			stage= (Stage) ((Node) event.getSource()).getScene().getWindow();
-			scene = new Scene(root, 600, 400);
+			Stage stage= (Stage) ((Node) event.getSource()).getScene().getWindow();
+			Scene scene = new Scene(root, 600, 400);
 			stage.setScene(scene);
 			stage.setTitle(title);
 			stage.show();
@@ -52,7 +50,7 @@ public class LoginController {
     }
     
     @FXML
-    void submitClicked(ActionEvent event) {
+    void submitClicked(ActionEvent event) throws IOException {
     	// Checks if the old password, security question, and answer question textfield is not empty. If not, proceed with changing password and save to file
     	if (oldPass.getText().isEmpty() == false && securityQuestion.getText().isEmpty() == false && ansQuestion.getText().isEmpty() == false) {
     		user = new Account(newPass.getText(), securityQuestion.getText(), ansQuestion.getText());
@@ -64,7 +62,30 @@ public class LoginController {
     		user.accountFromArray(fileManager.readFileArray(FILE_NAME));//setting program account to file account
     		user.changePassword(oldPass.getText(), newPass.getText(), repeatNewPass.getText(), securityQuestion.getText(), ansQuestion.getText());//running changePassword method to change after default password
     		fileManager.writeFile(FILE_NAME, user.getPassword() + "\n" + user.getQuestion() + "\n" + user.getAnswer());//writing default account to file
+    		
+    		// Once password submission is done, show the confirmation page 
+    		URL urlRoot = getClass().getClassLoader().getResource("views/confirmChangePass.fxml");
+    		Parent root = FXMLLoader.load(urlRoot);
+    		
+    		Stage stage= (Stage) ((Node) event.getSource()).getScene().getWindow();
+    		Scene scene = new Scene(root, 292, 170);
+    		stage.setScene(scene);
+    		stage.setTitle(title);
+    		stage.show();
     	}
     }
+    
+    @FXML
+    void okClicked(ActionEvent event) throws IOException {
+    	URL urlRoot = getClass().getClassLoader().getResource("views/login.fxml");
+		Parent root = FXMLLoader.load(urlRoot);
+		
+		Stage stage= (Stage) ((Node) event.getSource()).getScene().getWindow();
+		Scene scene = new Scene(root, 600, 400);
+		stage.setScene(scene);
+		stage.setTitle(title);
+		stage.show();
+    }
+
 
 }
