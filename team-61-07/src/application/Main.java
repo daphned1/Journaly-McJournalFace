@@ -16,9 +16,10 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
+			// Connecting to the login fxml file 
 			URL urlRoot = getClass().getClassLoader().getResource("views/login.fxml");
 			Parent root = FXMLLoader.load(urlRoot);
-
+			
 			Scene scene = new Scene(root, 600, 400);
 			primaryStage.setScene(scene);
 			primaryStage.setTitle(title);
