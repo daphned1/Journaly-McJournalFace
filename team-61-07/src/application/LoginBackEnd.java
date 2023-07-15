@@ -7,7 +7,7 @@ import java.util.*;
  * Main test class of the login process using the FlatFile, LoginPassword, and ModifyPassword classes.
  * 
  */
-public class LoginBackEnd {
+//public class LoginBackEnd {
 	
 //	public static void main(String[] args) throws Exception {
 //		
@@ -60,7 +60,7 @@ public class LoginBackEnd {
 //		
 //	}
 
-}
+//}
 
 /**
  * Class that handles finding, reading, and writing the password and security question/answer from an external file.
