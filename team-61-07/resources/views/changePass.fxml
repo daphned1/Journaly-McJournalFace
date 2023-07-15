@@ -27,7 +27,7 @@
       <Label layoutX="154.0" layoutY="295.0" text="Answer Security Question:" />
       <TextField fx:id="ansQuestion" layoutX="300.0" layoutY="291.0" prefHeight="25.0" prefWidth="152.0" />
       <Button layoutX="209.0" layoutY="352.0" mnemonicParsing="false" onAction="#submitClicked" text="Submit" />
-      <Button layoutX="338.0" layoutY="352.0" mnemonicParsing="false" onAction="#cancelClicked" text="Cancel" />
+      <Button layoutX="338.0" layoutY="352.0" mnemonicParsing="false" text="Cancel" />
       <PasswordField fx:id="oldPass" layoutX="283.0" layoutY="108.0" prefHeight="25.0" prefWidth="161.0" />
       <PasswordField fx:id="newPass" layoutX="283.0" layoutY="137.0" prefHeight="25.0" prefWidth="161.0" />
       <PasswordField fx:id="repeatNewPass" layoutX="283.0" layoutY="165.0" prefHeight="25.0" prefWidth="161.0" />
