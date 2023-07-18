@@ -9,7 +9,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #fff3eb;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoginController">
    <children>
-      <Label layoutX="176.0" layoutY="44.0" text="Journaly McJournalFace">
+      <Label fx:id="loginTitle" layoutX="176.0" layoutY="44.0" text="Journaly McJournalFace">
          <font>
             <Font name="Bookman Old Style Italic" size="21.0" />
          </font>
@@ -26,7 +26,7 @@
          </font>
       </Label>
       <Button layoutX="218.0" layoutY="217.0" mnemonicParsing="false" onAction="#loginClicked" text="Login" />
-      <Button layoutX="277.0" layoutY="217.0" mnemonicParsing="false" text="Forgot Password" />
+      <Button layoutX="277.0" layoutY="217.0" mnemonicParsing="false" onAction="#forgotPassClicked" text="Forgot Password" />
       <PasswordField fx:id="passwordField" layoutX="218.0" layoutY="176.0" prefHeight="25.0" prefWidth="163.0" />
    </children>
 </AnchorPane>

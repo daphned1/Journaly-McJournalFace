@@ -208,14 +208,14 @@ class Account {
 		String fileName = "JMJAccount";
 		FlatFile fileManager = new FlatFile();
 		String[] readFile = fileManager.readFileArray(fileName);
-		this.password = readFile[1];
+		this.secQuestion = readFile[1];
 		return this.secQuestion;
 	}
 	public String getAnswer() {
 		String fileName = "JMJAccount";
 		FlatFile fileManager = new FlatFile();
 		String[] readFile = fileManager.readFileArray(fileName);
-		this.password = readFile[2];
+		this.secAnswer = readFile[2];
 		return this.secAnswer;
 	}//getters for variables
 	
@@ -317,6 +317,7 @@ class Account {
 			setAnswer(newAnswer);//setting Account question to new answer
 			//System.out.println();
 			//System.out.println("Successfully changed password");
+			changeFile( newPasswords, securityQ, ansSecQ);
 			
 		} else {
 			//System.err.println("Password is incorrect; unable to change password");
@@ -333,14 +334,14 @@ class Account {
 	 * @param question The security question 
 	 * @param answer The answer to the security question 
 	 */
-	public void changeFile (String oldPass, String newPassword, String repeatNewPass, String question, String answer) {
+	public void changeFile (String newPassword, String question, String answer) {
 		String fileName = "JMJAccount";
 		FlatFile fileManager = new FlatFile();
 		fileManager.createEmptyFile(fileName);//creating file
 		fileManager.writeFile(fileName, "p" + "\n" + "question" + "\n" + "answer");//writing default account to file
 	
 		accountFromArray(fileManager.readFileArray(fileName));//setting program account to file account
-		changePassword(oldPass, newPassword, repeatNewPass, question, answer);//running changePassword method to change after default password
+		//changePassword(oldPass, newPassword, repeatNewPass, question, answer);//running changePassword method to change after default password
 		fileManager.writeFile(fileName, newPassword + "\n" + question + "\n" + answer);//writing default account to file
 		
 	}
@@ -351,22 +352,12 @@ class Account {
 	 * @param newPassword The new password 
 	 * @param verify Repeating the new password 
 	 */
-	public void resetPassword(String ansSec, String newPassword, String verify) {
-		String verifyAnswer = "";//initializing security verification
-		
-		System.out.println(getQuestion());
-		System.out.print("Enter answer to the security question: ");
-		verifyAnswer = ansSec;//input answer for verification
-		System.out.println();
-		
-		if (verifyAnswer.equals(getAnswer()) == true) {
-			System.out.println("Answer successfully verified");
+	public void resetPassword(String ansSec, String newPassword, String verify, String question) {
+		if (ansSec.equals(getAnswer()) == true && newPassword.equals(verify) && question.equals(getQuestion())) {
+			changeFile(newPassword, question, ansSec);
 			
-			String newPass = verifyPassword(newPassword, verify);//using verifyPassword method for new password
-			setPassword(newPass);//setting Account password to new password
-			System.out.println("Successfully reset password");
 		} else {
-			System.err.println("Answer is incorrect; unable to reset password");
+			//System.err.println("Answer is incorrect; unable to reset password");
 		}
 		
 	}
