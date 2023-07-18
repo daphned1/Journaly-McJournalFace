@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
@@ -18,11 +19,12 @@ public class LoginController {
 	
 	Account user = new Account();
 	private final static String title = "Journaly McJournalFace";
-	final String FILE_NAME = "JMJAccount";
-	private FlatFile fileManager;
 	
+	// From Login Page
 	@FXML
 	private PasswordField passwordField;
+	
+	//From First time Change Password FXML
 	@FXML
     private PasswordField oldPass;
     @FXML
@@ -34,9 +36,24 @@ public class LoginController {
     @FXML
     private TextField ansQuestion;
     
+    // From Reset Password FXML
+    @FXML
+    private PasswordField resetRepeatPass;
+    @FXML
+    private PasswordField resetNewPass;
+    @FXML
+    private TextField resetSecQuestion;
+    @FXML
+    private TextField resetSecAnswer;
+    
+    // Login FXML Methods 
+    /**
+     * Method for logging in. Will check if this is first time login, or if an account already exists
+     * @param event The action that will happen when the login button is clicked
+     * @throws IOException The error that will be thrown when an error occurs in this method 
+     */
     @FXML
     void loginClicked(ActionEvent event) throws IOException {
-    	//System.out.println(user.getPassword());
     	// Checks if this is first time login, if it is, go to changePassword scene
     	if (passwordField.getText().equals("p")) {
     		URL urlRoot = getClass().getClassLoader().getResource("views/changePass.fxml");
@@ -63,7 +80,29 @@ public class LoginController {
     	}
     }
     
-    // Change password page -> confirmation
+    /**
+     * Opening the forgot password scene
+     * @param event
+     * @throws IOException
+     */
+    @FXML
+    void forgotPassClicked(ActionEvent event) throws IOException {
+    	URL urlRoot = getClass().getClassLoader().getResource("views/forgetPassword.fxml");
+		Parent root = FXMLLoader.load(urlRoot);
+		
+		Scene scene = new Scene (root, 265, 333);
+		Stage stage = new Stage();
+		stage.initModality(Modality.APPLICATION_MODAL);
+		stage.setScene(scene);
+		stage.showAndWait();
+    }
+    
+    // ChangePass FXML Methods 
+    /**
+     * Changing the password for first time login. 
+     * @param event The action that will happen when the login button is clicked
+     * @throws IOException The error that will be thrown when an error occurs in this method 
+     */
     @FXML
     void submitClicked(ActionEvent event) throws IOException {
     	// Checks if the old password, security question, and answer question textfield is not empty. If not, proceed with changing password and save to file
@@ -73,7 +112,7 @@ public class LoginController {
     		user.setQuestion(securityQuestion.getText());
     		user.setAnswer(ansQuestion.getText());
 
-    		user.changeFile(oldPass.getText(), newPass.getText(), repeatNewPass.getText(), securityQuestion.getText(), ansQuestion.getText());
+    		user.changePassword(oldPass.getText(), newPass.getText(), repeatNewPass.getText(), securityQuestion.getText(), ansQuestion.getText());
     		
     		// Once password submission is done, show the confirmation pop-up
     		URL urlRoot = getClass().getClassLoader().getResource("views/confirmChangePass.fxml");
@@ -97,7 +136,11 @@ public class LoginController {
     	}
     }
     
-    // Changing password -> login page 
+    /**
+     * Changing scene from changing password page to login page when the cancel button is clicked 
+     * @param event The action that will happen when the login button is clicked
+     * @throws IOException The error that will be thrown when an error occurs in this method 
+     */
     @FXML
     void cancelClicked(ActionEvent event) throws IOException {
     	URL urlRoot = getClass().getClassLoader().getResource("views/login.fxml");
@@ -110,19 +153,49 @@ public class LoginController {
 		stage.show();
     }
     
-    // Closing confirmation pop-up
+    // Confirmation FXML Methods 
+    /**
+     * Closing confirmation pop-up
+     * @param event The action that will happen when the login button is clicked
+     * @throws IOException The error that will be thrown when an error occurs in this method 
+     */
     @FXML
-    boolean okClicked(ActionEvent event) throws IOException {
-    	boolean clicked = false;
+    void okClicked(ActionEvent event) throws IOException {
     	Node source = (Node) event.getSource();
     	Stage stage = (Stage) source.getScene().getWindow();
     	stage.close();
-    	clicked = true;
-    	return clicked;
     }
     
+    // Forget Password FXML Methods 
+    @FXML
+    void passResetSubmitClicked(ActionEvent event) {
+    	// Reset the password 
+    	user.resetPassword(resetSecAnswer.getText(), resetNewPass.getText(), resetRepeatPass.getText(), resetSecQuestion.getText());
+    	
+    	// Close pop-up once done
+    	Node source = (Node) event.getSource();
+    	Stage stage = (Stage) source.getScene().getWindow();
+    	stage.close();
+    }
     
-    //homepage -> login
+    /**
+     * Closes the forget password pop-up
+     * @param event The action that will happen when the login button is clicked
+     * @throws IOException The error that will be thrown when an error occurs in this method
+     */
+    @FXML
+    void resetCancelClicked(ActionEvent event) throws IOException {
+    	Node source = (Node) event.getSource();
+    	Stage stage = (Stage) source.getScene().getWindow();
+    	stage.close();
+    }
+    
+    // Homepage FXML Methods 
+    /**
+     * Logging out of application 
+     * @param event The action that will happen when the login button is clicked
+     * @throws IOException The error that will be thrown when an error occurs in this method 
+     */
     @FXML
     void logoutClicked(ActionEvent event) throws IOException {
     	URL urlRoot = getClass().getClassLoader().getResource("views/login.fxml");
@@ -134,5 +207,6 @@ public class LoginController {
 		stage.setTitle(title);
 		stage.show();
     }
+    
 
 }
