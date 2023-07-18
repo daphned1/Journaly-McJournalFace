@@ -198,12 +198,24 @@ class Account {
 	}
 	
 	public String getPassword() {
+		String fileName = "JMJAccount";
+		FlatFile fileManager = new FlatFile();
+		String[] readFile = fileManager.readFileArray(fileName);
+		this.password = readFile[0];
 		return this.password;
 	}
 	public String getQuestion() {
+		String fileName = "JMJAccount";
+		FlatFile fileManager = new FlatFile();
+		String[] readFile = fileManager.readFileArray(fileName);
+		this.password = readFile[1];
 		return this.secQuestion;
 	}
 	public String getAnswer() {
+		String fileName = "JMJAccount";
+		FlatFile fileManager = new FlatFile();
+		String[] readFile = fileManager.readFileArray(fileName);
+		this.password = readFile[2];
 		return this.secAnswer;
 	}//getters for variables
 	
@@ -219,15 +231,16 @@ class Account {
 	
 	/**
 	 * Method that verifies an inputed String for a new password.
-	 * @param input Scanner object used to input password
+	 * @param newPassword The new password that the user wants. 
+	 * @param verify Repeating the new password to make sure it is typed correctly
 	 * @return newPass the new password after verification 
 	 */
-	public String verifyPassword(String newPassword1, String verify) {
+	public String verifyPassword(String newPassword, String verify) {
 		String newPass = "";
 		String newPassVerify = "";//initializing new password variables
 		
 		//System.out.print("Enter new password: ");
-		newPass = newPassword1;//input new password
+		newPass = newPassword;//input new password
 		//System.out.println();
 		//System.out.print("Verify new password: ");
 		newPassVerify = verify;//verify new password
@@ -254,26 +267,33 @@ class Account {
 	}
 	
 	/**
-	 * Method that simulates the login process by inputting a password.
-	 * @param input Scanner object used to input password
+	 * Method that checks if password is correct to login
+	 * @param password Getting the password 
 	 */
-	public void accountLogin(Scanner input) {
+	public boolean accountLogin(String password) {
 		String loginVerify = "";//initializing password verification
 		
-		System.out.print("Enter the password: ");
-		loginVerify = input.nextLine();//verify input
-		System.out.println();
+		//System.out.print("Enter the password: ");
+		loginVerify = password;//verify input
+		//System.out.println();
 		
 		if (loginVerify.equals(getPassword()) == true) {//if input matches password
-			System.out.println("Password verified; logging in");
+			//System.out.println("Password verified; logging in");
+			return true;
 		} else {//incorrect password
-			System.err.println("Incorrect password");
+			//System.err.println("Incorrect password");
+			return false;
 		}
 	}
 	
 	/**
 	 * Method that changes the password using the old and new passwords and creates a security question and answer for changing the password.
-	 * @param input Scanner object used to input passwords, security question, and answer
+	 * First time password change
+	 * @param oldPass The old password 
+	 * @param newPasswords The new password
+	 * @param newVerify Repeating the new password 
+	 * @param securityQ The security question 
+	 * @param ansSecQ The answer to security question 
 	 */
 	public void changePassword(String oldPass, String newPasswords, String newVerify, String securityQ, String ansSecQ) {
 		String oldPassVerify = "";//initializing old password verification
@@ -282,7 +302,7 @@ class Account {
 		oldPassVerify = oldPass;//verify old password
 		//System.out.println();
 		
-		if (oldPassVerify.equals(getPassword()) == true) {
+		if (oldPassVerify.equals("p") == true) {
 			//System.out.println("Old password verified; changing password");
 			
 			String newPass = verifyPassword(newPasswords, newVerify);//calling verifyPassword method for new password
@@ -305,8 +325,31 @@ class Account {
 	}
 	
 	/**
+	 * A method for changing the flatfile 
+	 * 
+	 * @param oldPass The old password 
+	 * @param newPassword The new password 
+	 * @param repeatNewPass The new password repeated 
+	 * @param question The security question 
+	 * @param answer The answer to the security question 
+	 */
+	public void changeFile (String oldPass, String newPassword, String repeatNewPass, String question, String answer) {
+		String fileName = "JMJAccount";
+		FlatFile fileManager = new FlatFile();
+		fileManager.createEmptyFile(fileName);//creating file
+		fileManager.writeFile(fileName, "p" + "\n" + "question" + "\n" + "answer");//writing default account to file
+	
+		accountFromArray(fileManager.readFileArray(fileName));//setting program account to file account
+		changePassword(oldPass, newPassword, repeatNewPass, question, answer);//running changePassword method to change after default password
+		fileManager.writeFile(fileName, newPassword + "\n" + question + "\n" + answer);//writing default account to file
+		
+	}
+	
+	/**
 	 * Method that resets the password using the security question and answer for verification and sets the new password used.
-	 * @param input Scanner object used to input security answer and new password
+	 * @param ansSec The answer to security question 
+	 * @param newPassword The new password 
+	 * @param verify Repeating the new password 
 	 */
 	public void resetPassword(String ansSec, String newPassword, String verify) {
 		String verifyAnswer = "";//initializing security verification
