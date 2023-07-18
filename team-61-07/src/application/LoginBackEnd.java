@@ -68,7 +68,7 @@ import java.util.*;
  * (implemented by Hayk/Richie)
  */
 class FlatFile {
-	
+	// this is a test of my git, sup guys :D
 	/**
 	 * Method that searches for a flat file.
 	 * @param name String input used for the file name
