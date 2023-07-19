@@ -133,7 +133,36 @@ class FlatFile {
 			e.printStackTrace();
 		}
 	}
-	
+	/**
+	 * Method that adds a line to a flatfile instead of replacing it
+	 * @param name String input used for the file name 
+	 * @param contents String input for contents to be written into the file
+	 */
+	public void addLineToFile(String name, String contents) {
+		try {
+			
+			//commented out printFile usage
+		 	String current;
+			current = printFile(name);
+			
+			
+			FileWriter check = new FileWriter(name + ".txt", false);//override contents of file
+			BufferedWriter writer = new BufferedWriter(check);
+			//commented out for the writing to override contents of file
+			if(current != null && current.equals("") == false) {
+				writer.write(current + "\n");
+			}
+			writer.write(contents);
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	public void removeText(String name, String text) throws IOException {
+		String check = printFile(name);
+		String output = check.substring(0, check.indexOf(text)) + check.substring(check.indexOf(text)+text.length());;
+		writeFile(name, output);
+	}
 	/**
 	 * (currently unused) Method that prints the contents of a file into the program.
 	 * @param name String input used to find the file to print
@@ -165,7 +194,63 @@ class FlatFile {
 	}
 	
 }
-
+/**
+ * Class that creates a .txt file with a journal entry inside
+ * This class uses the FlatFile to read and write data from .txt files, it does not actually 
+ */
+class Journal {
+	FlatFile file;
+	/**
+	 * creates the journal and creates a new file called listOfAllJournalEntries if it does not exist already
+	 */
+	public Journal() {
+		file = new FlatFile();
+		file.createEmptyFile("listOfAllJournalEntries");
+	}
+	/**
+	 * creates a new journal and adds its name to the file with the name of all journals
+	 * @param nameOfJournal the name of the journal
+	 */
+	public void createJournal(String nameOfJournal) {
+		file.addLineToFile("listOfAllJournalEntries", nameOfJournal);
+		file.createEmptyFile(nameOfJournal);
+	}
+	/**
+	 * reads the journal and outputs its entry as a string
+	 * @param nameOfJournal
+	 * @return
+	 * @throws IOException
+	 */
+	public String readJournal(String nameOfJournal) throws IOException {
+		String output = "";
+		output = file.printFile(nameOfJournal);
+		return output;
+	}
+	/**
+	 * replaces the journal
+	 * @param nameOfJournal
+	 * @param entry
+	 */
+	public void replaceJournalEntry(String nameOfJournal, String entry) {
+		file.writeFile(nameOfJournal, entry);
+	}
+	/**
+	 * wipes the journal
+	 * @param nameOfJournal
+	 */
+	public void wipeEntry(String nameOfJournal) {
+		replaceJournalEntry(nameOfJournal,"");
+	}
+	/**
+	 * adds a line to the journal without completely overriding its contents
+	 * @param nameOfJournal
+	 * @param addition
+	 */
+	public void addToEntry(String nameOfJournal, String addition) {
+		file.addLineToFile(nameOfJournal, addition);
+	}
+	//TODO: add a function that changes the name of the journal, add a function that deletes the journal
+}
 /**
  * Class that handles the password and includes methods of changing and resetting the password using a security question and answer.
  * This class uses FlatFile for changing and resetting the password.
