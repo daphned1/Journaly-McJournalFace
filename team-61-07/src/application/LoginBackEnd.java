@@ -198,12 +198,12 @@ class FlatFile {
  * Class that creates a .txt file with a journal entry inside
  * This class uses the FlatFile to read and write data from .txt files, it does not actually 
  */
-class JournalController {
+class Journal {
 	FlatFile file;
 	/**
-	 * creates the journalcontroller and creates a new file called listOfAllJournalEntries if it does not exist already
+	 * creates the journal and creates a new file called listOfAllJournalEntries if it does not exist already
 	 */
-	public JournalController() {
+	public Journal() {
 		file = new FlatFile();
 		file.createEmptyFile("listOfAllJournalEntries");
 	}
