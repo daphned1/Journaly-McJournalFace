@@ -169,13 +169,14 @@ public class LoginController {
     // Forget Password FXML Methods 
     @FXML
     void passResetSubmitClicked(ActionEvent event) {
-    	// Reset the password 
-    	user.resetPassword(resetSecAnswer.getText(), resetNewPass.getText(), resetRepeatPass.getText(), resetSecQuestion.getText());
-    	
-    	// Close pop-up once done
-    	Node source = (Node) event.getSource();
-    	Stage stage = (Stage) source.getScene().getWindow();
-    	stage.close();
+    	if (user.getAnswer().equals(resetSecAnswer.getText())) {
+    		// Reset the password 
+        	user.resetPassword(resetSecAnswer.getText(), resetNewPass.getText(), resetRepeatPass.getText(), resetSecQuestion.getText());
+        	// Close pop-up once done
+    		Node source = (Node) event.getSource();
+        	Stage stage = (Stage) source.getScene().getWindow();
+        	stage.close();
+    	}
     }
     
     /**
