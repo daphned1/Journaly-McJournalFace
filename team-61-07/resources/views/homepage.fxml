@@ -39,6 +39,7 @@
          </image>
       </ImageView>
       <ChoiceBox layoutX="14.0" layoutY="175.0" prefHeight="13.0" prefWidth="98.0" />
-      <Button layoutX="121.0" layoutY="175.0" mnemonicParsing="false" text="Create Entry" />
+      <Button layoutX="121.0" layoutY="175.0" mnemonicParsing="false" onAction="#newEntryClicked" text="Create Entry" />
+      <Button fx:id="createdJournal" layoutX="14.0" layoutY="222.0" mnemonicParsing="false" onAction="#journalEntryClicked" prefHeight="56.0" prefWidth="98.0" text="Title" visible="false" />
    </children>
 </AnchorPane>
