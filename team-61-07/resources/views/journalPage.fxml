@@ -6,13 +6,12 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoginController">
    <children>
       <TextArea layoutX="37.0" layoutY="80.0" prefHeight="292.0" prefWidth="523.0" promptText="Type here" AnchorPane.bottomAnchor="28.0" AnchorPane.leftAnchor="37.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="80.0" />
       <AnchorPane layoutX="38.0" layoutY="20.0" prefHeight="53.0" prefWidth="523.0" AnchorPane.leftAnchor="38.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <Label layoutX="425.0" text="Weekday XX XX XXXX" AnchorPane.rightAnchor="40.0">
+            <Label layoutX="425.0" text="XX XX XXXX" AnchorPane.rightAnchor="40.0">
                <font>
                   <Font size="10.0" />
                </font>
@@ -22,26 +21,31 @@
                   <Font size="10.0" />
                </font>
             </Label>
-            <Button layoutY="1.0" mnemonicParsing="false" onMouseClicked="#changeTitle" prefHeight="23.0" prefWidth="105.0" text="Change Title" AnchorPane.leftAnchor="0.0">
+            <Button layoutY="1.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="44.0" text="Edit" AnchorPane.leftAnchor="0.0">
                <font>
                   <Font size="12.0" />
                </font>
             </Button>
-            <Button layoutY="29.0" mnemonicParsing="false" onMouseClicked="#deleteEntry" prefHeight="24.0" prefWidth="54.0" text="Delete" AnchorPane.leftAnchor="0.0">
+            <Button layoutX="51.0" layoutY="28.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="53.0" text="Delete" AnchorPane.leftAnchor="51.0">
                <font>
                   <Font size="12.0" />
                </font>
             </Button>
-            <Button layoutX="61.0" layoutY="29.0" mnemonicParsing="false" onMouseClicked="#saveEntry" prefHeight="24.0" prefWidth="44.0" text="Save" AnchorPane.leftAnchor="61.0">
+            <Button layoutY="28.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="44.0" text="Save" AnchorPane.leftAnchor="0.0">
                <font>
                   <Font size="12.0" />
                </font>
             </Button>
-            <Label alignment="CENTER" layoutX="-1.0" layoutY="9.0" prefHeight="19.0" prefWidth="600.0" text="Untitled Entry" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <Label alignment="CENTER" layoutY="15.0" prefHeight="19.0" prefWidth="600.0" text="Untitled Entry" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
+            <Button layoutX="51.0" layoutY="1.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="53.0" text="Exit">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
    </children>

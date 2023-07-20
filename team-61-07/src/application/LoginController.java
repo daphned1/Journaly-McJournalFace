@@ -3,12 +3,17 @@ package application;
 import java.io.IOException;
 import java.net.URL;
 
+import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXTimePicker;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -18,6 +23,7 @@ import javafx.stage.Stage;
 public class LoginController {
 	
 	Account user = new Account();
+	Journal userJournal = new Journal();
 	private final static String title = "Journaly McJournalFace";
 	
 	// From Login Page
@@ -45,6 +51,20 @@ public class LoginController {
     private TextField resetSecQuestion;
     @FXML
     private TextField resetSecAnswer;
+    
+    // From Homepage 
+    @FXML
+    private Button createdJournal;
+    
+    // From Creating Journal Entry Pop-up
+    @FXML
+    private TextField journalTitle;
+
+    @FXML
+    private JFXDatePicker datePicker;
+
+    @FXML
+    private JFXTimePicker timePicker;
     
     // Login FXML Methods 
     /**
@@ -193,6 +213,45 @@ public class LoginController {
     
     // Homepage FXML Methods 
     /**
+     * Opens the create new journal pop-up when user wants to make a new journal entry. When the submit button is clicked, it'll go 
+     * to the journal page 
+     * @param event The action that will happen when the login button is clicked
+     * @throws IOException The error that will be thrown when an error occurs in this method
+     */
+    @FXML
+    void newEntryClicked(ActionEvent event) throws IOException {
+    	URL urlRoot = getClass().getClassLoader().getResource("views/createNewJournal.fxml");
+		Parent root = FXMLLoader.load(urlRoot);
+		
+		Scene scene = new Scene (root, 305, 225);
+		Stage stage = new Stage();
+		stage.initModality(Modality.APPLICATION_MODAL);
+		stage.setScene(scene);
+		stage.showAndWait();
+		
+//		String title = journalTitle.getText();
+//		createdJournal.setText(title);
+		createdJournal.setVisible(true);
+    }
+    
+    /**
+     * When the journal entry button is clicked, it'll go into the journal entry page where user can write their content
+     * @param event
+     * @throws IOException
+     */
+    @FXML
+    void journalEntryClicked(ActionEvent event) throws IOException {
+    	URL urlRoot = getClass().getClassLoader().getResource("views/journalPage.fxml");
+		Parent root = FXMLLoader.load(urlRoot);
+		
+		Stage stage= (Stage) ((Node) event.getSource()).getScene().getWindow();
+		Scene scene = new Scene(root, 600, 400);
+		stage.setScene(scene);
+		stage.setTitle(title);
+		stage.show();
+    }
+    
+    /**
      * Logging out of application 
      * @param event The action that will happen when the login button is clicked
      * @throws IOException The error that will be thrown when an error occurs in this method 
@@ -209,5 +268,26 @@ public class LoginController {
 		stage.show();
     }
     
+    // New Journal Entry Pop-up
+    /**
+     * Closes the create new journal pop-up
+     * @param event The action that will happen when the login button is clicked
+     */
+    @FXML
+    void cancelNewJournal(ActionEvent event) {
+    	Node source = (Node) event.getSource();
+    	Stage stage = (Stage) source.getScene().getWindow();
+    	stage.close();
+    }
+    
+    @FXML
+    void submitNewJournal(ActionEvent event) {
+    	userJournal.createJournal(journalTitle.getText());
+    	
+    	Node source = (Node) event.getSource();
+    	Stage stage = (Stage) source.getScene().getWindow();
+    	stage.close();
+    	//return true;
+    }
 
 }
