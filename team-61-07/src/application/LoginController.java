@@ -282,7 +282,7 @@ public class LoginController {
     
     @FXML
     void submitNewJournal(ActionEvent event) {
-    	userJournal.createJournal(journalTitle.getText());
+    	//userJournal.createJournal(journalTitle.getText());
     	
     	Node source = (Node) event.getSource();
     	Stage stage = (Stage) source.getScene().getWindow();
