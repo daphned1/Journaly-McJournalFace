@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ScrollBar?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
@@ -38,8 +37,7 @@
             <Image url="@../images/e5326007-0318-4ee6-a77b-5e42482099fb.jpg" />
          </image>
       </ImageView>
-      <ChoiceBox layoutX="14.0" layoutY="175.0" prefHeight="13.0" prefWidth="98.0" />
-      <Button layoutX="121.0" layoutY="175.0" mnemonicParsing="false" onAction="#newEntryClicked" text="Create Entry" />
-      <Button fx:id="createdJournal" layoutX="14.0" layoutY="222.0" mnemonicParsing="false" onAction="#journalEntryClicked" prefHeight="56.0" prefWidth="98.0" text="Title" visible="false" />
+      <Rectangle arcHeight="5.0" fill="#a2bfe8" height="200.0" layoutX="204.0" layoutY="175.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
+      <Button layoutX="251.0" layoutY="231.0" mnemonicParsing="false" onAction="#newEntryClicked" prefHeight="88.0" prefWidth="107.0" text="Create Entry" />
    </children>
 </AnchorPane>

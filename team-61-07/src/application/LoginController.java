@@ -16,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -23,7 +24,8 @@ import javafx.stage.Stage;
 public class LoginController {
 	
 	Account user = new Account();
-	Journal userJournal = new Journal();
+	JournalEntry userJournal;
+	Journal journalManager = new Journal();
 	private final static String title = "Journaly McJournalFace";
 	
 	// From Login Page
@@ -56,15 +58,16 @@ public class LoginController {
     @FXML
     private Button createdJournal;
     
-    // From Creating Journal Entry Pop-up
-    @FXML
-    private TextField journalTitle;
-
+    // From Journal Entry Page
     @FXML
     private JFXDatePicker datePicker;
-
+    @FXML
+    private TextField journalTitle;
     @FXML
     private JFXTimePicker timePicker;
+    @FXML
+    private TextArea journalContent;
+    
     
     // Login FXML Methods 
     /**
@@ -213,25 +216,20 @@ public class LoginController {
     
     // Homepage FXML Methods 
     /**
-     * Opens the create new journal pop-up when user wants to make a new journal entry. When the submit button is clicked, it'll go 
-     * to the journal page 
+     * Opens the journal page where user can write the title, pick date-time
      * @param event The action that will happen when the login button is clicked
      * @throws IOException The error that will be thrown when an error occurs in this method
      */
     @FXML
     void newEntryClicked(ActionEvent event) throws IOException {
-    	URL urlRoot = getClass().getClassLoader().getResource("views/createNewJournal.fxml");
+    	URL urlRoot = getClass().getClassLoader().getResource("views/journalPage.fxml");
 		Parent root = FXMLLoader.load(urlRoot);
 		
-		Scene scene = new Scene (root, 305, 225);
-		Stage stage = new Stage();
-		stage.initModality(Modality.APPLICATION_MODAL);
+		Stage stage= (Stage) ((Node) event.getSource()).getScene().getWindow();
+		Scene scene = new Scene(root, 600, 400);
 		stage.setScene(scene);
-		stage.showAndWait();
-		
-//		String title = journalTitle.getText();
-//		createdJournal.setText(title);
-		createdJournal.setVisible(true);
+		stage.setTitle(title);
+		stage.show();
     }
     
     /**
@@ -268,26 +266,82 @@ public class LoginController {
 		stage.show();
     }
     
-    // New Journal Entry Pop-up
+    // Journal Entry Page
     /**
-     * Closes the create new journal pop-up
+     * Exiting journal 
      * @param event The action that will happen when the login button is clicked
+     * @throws IOException The error that will be thrown when an error occurs in this method 
      */
     @FXML
-    void cancelNewJournal(ActionEvent event) {
+    void exitJournalEntry(ActionEvent event) throws IOException {
+    	URL urlRoot = getClass().getClassLoader().getResource("views/homepage.fxml");
+		Parent root = FXMLLoader.load(urlRoot);
+		
+		Stage stage= (Stage) ((Node) event.getSource()).getScene().getWindow();
+		Scene scene = new Scene(root, 600, 400);
+		stage.setScene(scene);
+		stage.setTitle(title);
+		stage.show();
+    }
+    
+    /**
+     * Saving the journal entry 
+     * @param event The action that will happen when the login button is clicked
+     * @throws IOException The error that will be thrown when an error occurs in this method
+     */
+    @FXML
+    void saveJournalEntry(ActionEvent event) throws IOException {
+    	// If there is no value for date or time, show the error pop-up
+    	if (datePicker.getValue() == null && timePicker.getValue() == null) {
+    		URL urlRoot = getClass().getClassLoader().getResource("views/saveJournalError.fxml");
+    		Parent root = FXMLLoader.load(urlRoot);
+    		
+    		Scene scene = new Scene (root, 292, 170);
+    		Stage stage = new Stage();
+    		stage.initModality(Modality.APPLICATION_MODAL);
+    		stage.setScene(scene);
+    		stage.showAndWait();
+    	}
+    	// If everything else is fine, show save confirmation
+    	else {
+    		userJournal = new JournalEntry(datePicker.getValue().toString(), timePicker.getValue().toString(), journalTitle.getText(), journalContent.getText(), "tempFileName");
+        	journalManager.exportEntry(userJournal);
+        	
+        	URL urlRoot = getClass().getClassLoader().getResource("views/saveEntryConfirm.fxml");
+    		Parent root = FXMLLoader.load(urlRoot);
+    		
+    		Scene scene = new Scene (root, 292, 170);
+    		Stage stage = new Stage();
+    		stage.initModality(Modality.APPLICATION_MODAL);
+    		stage.setScene(scene);
+    		stage.showAndWait();
+    	}
+    	
+    }
+    
+    /**
+     * Closes the save journal entry pop-up
+     * @param event The action that will happen when the login button is clicked
+     * @throws IOException The error that will be thrown when an error occurs in this method
+     */
+    @FXML
+    void okJournalEntrySave(ActionEvent event) {
     	Node source = (Node) event.getSource();
     	Stage stage = (Stage) source.getScene().getWindow();
     	stage.close();
     }
     
+    /**
+     * Closes the saving error journal pop-up 
+     * @param event The action that will happen when the login button is clicked
+     * @throws IOException The error that will be thrown when an error occurs in this method
+     */
     @FXML
-    void submitNewJournal(ActionEvent event) {
-    	//userJournal.createJournal(journalTitle.getText());
-    	
+    void okError(ActionEvent event) {
     	Node source = (Node) event.getSource();
     	Stage stage = (Stage) source.getScene().getWindow();
     	stage.close();
-    	//return true;
     }
+
 
 }
