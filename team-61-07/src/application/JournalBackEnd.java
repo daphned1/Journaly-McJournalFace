@@ -9,45 +9,45 @@ import java.text.*;
  * Main test class of the journal process using the FlatFile, JournalEntry, and Journal classes.
  * 
  */
-public class JournalBackEnd {
+//public class JournalBackEnd {
 	
-	public static void main(String[] args) throws Exception {
-		
-		//DEBUG: the scanner input stuff is supposed to represent the text boxes in the program
-		
-		Journal journalManager = new Journal();//initializing FlatFile class
-		Scanner input = new Scanner(System.in);//creating Scanner object
-		
-		System.out.print("Provide a journal entry title: ");
-		String title = input.nextLine();
-		System.out.println();
-		
-		System.out.print("Create a journal entry (line only for test): ");
-		String contents = input.nextLine();
-		System.out.println();
-		
-		System.out.print("Save the journal entry? (y/n): ");
-		String choice = input.nextLine();
-		System.out.println();
-		
-		switch (choice) {
-		case "y"://user saves journal
-			JournalEntry testEntry = new JournalEntry(new Date(), title, contents, "tempFileName");//creating entry with title and contents
-			journalManager.exportEntry(testEntry);//exporting entry to file
-			System.out.println("Journal entry successfully saved to " + testEntry.getFileName() + ".txt");
-			break;
-		case "n"://user does not save journal
-			System.out.println("Journal entry discarded");
-			break;
-		default://none of the above options
-			System.err.println("Invalid choice");
-			break;
-		}
-		
-		input.close();
-	}
-
-}
+//	public static void main(String[] args) throws Exception {
+//		
+//		//DEBUG: the scanner input stuff is supposed to represent the text boxes in the program
+//		
+//		Journal journalManager = new Journal();//initializing FlatFile class
+//		Scanner input = new Scanner(System.in);//creating Scanner object
+//		
+//		System.out.print("Provide a journal entry title: ");
+//		String title = input.nextLine();
+//		System.out.println();
+//		
+//		System.out.print("Create a journal entry (line only for test): ");
+//		String contents = input.nextLine();
+//		System.out.println();
+//		
+//		System.out.print("Save the journal entry? (y/n): ");
+//		String choice = input.nextLine();
+//		System.out.println();
+//		
+//		switch (choice) {
+//		case "y"://user saves journal
+//			JournalEntry testEntry = new JournalEntry(new Date(), title, contents, "tempFileName");//creating entry with title and contents
+//			journalManager.exportEntry(testEntry);//exporting entry to file
+//			System.out.println("Journal entry successfully saved to " + testEntry.getFileName() + ".txt");
+//			break;
+//		case "n"://user does not save journal
+//			System.out.println("Journal entry discarded");
+//			break;
+//		default://none of the above options
+//			System.err.println("Invalid choice");
+//			break;
+//		}
+//		
+//		input.close();
+//	}
+//
+//}
 
 /**
  * Class that creates a .txt file with a journal entry inside
@@ -87,8 +87,8 @@ class Journal {
 	}
 	/**
 	 * reads the journal and outputs its entry as a string
-	 * @param nameOfJournal
-	 * @return
+	 * @param nameOfJournal The name of the journal 
+	 * @return output The name of the journal
 	 * @throws IOException
 	 */
 	public String readJournal(String nameOfJournal) throws IOException {
@@ -132,7 +132,8 @@ class Journal {
 			createJournal(entry);//creating new journal entry into list if entry file does not exist
 		}
 		wipeEntry(entry.getFileName());
-		addToEntry(entry.getFileName(), entry.getDateString());
+		addToEntry(entry.getFileName(), entry.getDate());
+		addToEntry(entry.getFileName(), entry.getTime());
 		addToEntry(entry.getFileName(), entry.getTitle());
 		addToEntry(entry.getFileName(), entry.getContents());
 		
@@ -147,7 +148,8 @@ class Journal {
  * (implemented by Richie)
  */
 class JournalEntry {
-	private Date date;
+	private String date;
+	private String time;
 	private String title;
 	private String contents;
 	private String fileName;//instance variables for journal entry
@@ -156,7 +158,8 @@ class JournalEntry {
 	 * Default constructor without arguments.
 	 */
 	public JournalEntry() {
-		this.date = new Date();
+		this.date = "";
+		this.time = "";
 		this.title = "title";
 		this.contents = "contents";
 		this.fileName = "fileName";
@@ -164,13 +167,15 @@ class JournalEntry {
 	
 	/**
 	 * Constructor with arguments.
-	 * @param inputDate Date object used for the journal entry date.
+	 * @param inputDate String used for the journal entry date.
+	 * @param inputTime String used for the journal entry time 
 	 * @param inputTitle String used for the title of the journal entry.
 	 * @param inputContents String used for the journal entry contents.
 	 * @param inputFileName String used for the journal entry file name for export.
 	 */
-	public JournalEntry(Date inputDate, String inputTitle, String inputContents, String inputFileName) {
+	public JournalEntry(String inputDate, String inputTime, String inputTitle, String inputContents, String inputFileName) {
 		this.date = inputDate;
+		this.time = inputTime;
 		this.title = inputTitle;
 		this.contents = inputContents;
 		this.fileName = inputFileName;
@@ -180,16 +185,16 @@ class JournalEntry {
 	 * Getter for journal entry date.
 	 * @return date The date of the journal entry.
 	 */
-	public Date getDate() {
+	public String getDate() {
 		return this.date;
 	}
+	
 	/**
-	 * Getter for the journal entry date as a String.
-	 * @return dateString The date of the journal entry in a String format.
+	 * Getter for journal entry date.
+	 * @return time The time of the journal entry.
 	 */
-	public String getDateString() {
-		DateFormat formatDate = new SimpleDateFormat("MMMMM dd yyyy (HH:mm:ss z)");//creating format of month/day/year (hour:minute:second timezone)
-		return formatDate.format(getDate());
+	public String getTime() {
+		return this.time;
 	}
 	/**
 	 * Getter for journal entry title.
@@ -215,11 +220,20 @@ class JournalEntry {
 	
 	/**
 	 * Setter for journal entry date.
-	 * @param date Date Object for new journal entry date.
+	 * @param date String for new journal entry date.
 	 */
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
+	
+	/**
+	 * Setter for journal entry date.
+	 * @param time String for new journal entry time.
+	 */
+	public void setTime(String time) {
+		this.time = time;
+	}
+	
 	/**
 	 * Setter for journal entry title.
 	 * @param title String input for new journal entry title.
@@ -227,6 +241,7 @@ class JournalEntry {
 	public void setTitle(String title) {
 		this.title = title;
 	}
+	
 	/**
 	 * Setter for journal entry contents.
 	 * @param contents String input for new journal entry contents.
@@ -234,6 +249,7 @@ class JournalEntry {
 	public void setContents(String contents) {
 		this.contents = contents;
 	}
+	
 	/**
 	 * Setter for journal entry file name.
 	 * @param fileName String input for the new journal entry file name.
