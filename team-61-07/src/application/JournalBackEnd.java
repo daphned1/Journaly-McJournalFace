@@ -81,8 +81,8 @@ class Journal {
 	 * @param entry JournalEntry Object to get the title and file name of the entry.
 	 */
 	public void createJournal(JournalEntry entry) {
-		file.addLineToFile(JOURNAL_ENTRY_LIST, entry.getTitle());
 		entry.createFileName();
+		file.addLineToFile(JOURNAL_ENTRY_LIST, entry.getFileName());
 		file.createEmptyFile(entry.getFileName());
 	}
 	/**
