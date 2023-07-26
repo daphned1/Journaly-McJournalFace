@@ -157,7 +157,26 @@ class Account {
 			//System.out.println("Successfully changed password");
 			changeFile( newPasswords, securityQ, ansSecQ);
 			
-		} else {
+		} 
+		else if (oldPassVerify.equals(getPassword()) == true) {
+			//System.out.println("Old password verified; changing password");
+			
+			String newPass = verifyPassword(newPasswords, newVerify);//calling verifyPassword method for new password
+			setPassword(newPass);//setting Account password to new password
+			
+			//System.out.print("Enter security question: ");
+			String newQuestion = securityQ;//input security question
+			setQuestion(newQuestion);//setting Account question to new question
+			//System.out.println();
+			//System.out.print("Enter answer to security question: ");
+			String newAnswer = ansSecQ;//input answer to security question
+			setAnswer(newAnswer);//setting Account question to new answer
+			//System.out.println();
+			//System.out.println("Successfully changed password");
+			changeFile( newPasswords, securityQ, ansSecQ);
+			
+		}
+		else {
 			//System.err.println("Password is incorrect; unable to change password");
 		}
 		
