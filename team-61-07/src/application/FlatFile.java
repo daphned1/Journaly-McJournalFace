@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -52,6 +53,27 @@ class FlatFile {
 			e.printStackTrace();//if the file does not exist
 		}
 		return accountDetails;
+	}
+	
+	/**
+	 * Method that creates a formatted array from the file contents for a journal
+	 * @param name String input used for the file name
+	 * @return journalDetails String array containing file contents for journal
+	 */
+	public String[] readJournalArray(String name) {
+		String[] journalDetails = new String[4];//initializing array
+		try {
+			int i = 0;
+			Scanner readLines = new Scanner(new File(name + ".txt"));//Scanner to read file lines
+			while (readLines.hasNext()) {
+				journalDetails[i] = readLines.nextLine();
+				i++;
+			}
+			readLines.close();
+		} catch (IOException e) {
+			e.printStackTrace();//if the file does not exist
+		}
+		return journalDetails;
 	}
 	
 	/**

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SearchController">
+   <children>
+      <Separator layoutY="33.0" prefHeight="13.0" prefWidth="600.0" />
+      <Label layoutX="11.0" layoutY="14.0" text="Journaly McJournalFace">
+         <font>
+            <Font name="Bookman Old Style Italic" size="11.0" />
+         </font>
+      </Label>
+      <TextField fx:id="searchBar" layoutX="152.0" layoutY="8.0" prefHeight="26.0" prefWidth="303.0" promptText="Search " />
+      <Button layoutX="464.0" layoutY="7.0" mnemonicParsing="false" onAction="#searchClicked" prefHeight="26.0" prefWidth="60.0" text="Search" />
+      <Button layoutX="530.0" layoutY="7.0" mnemonicParsing="false" onAction="#searchCancelled" prefHeight="26.0" prefWidth="60.0" text="Cancel" />
+      <ListView fx:id="listView" layoutX="35.0" layoutY="38.0" onMouseClicked="#rowClicked" prefHeight="313.0" prefWidth="537.0" />
+   </children>
+</AnchorPane>

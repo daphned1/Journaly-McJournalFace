@@ -191,11 +191,34 @@ class JournalEntry {
 	
 	/**
 	 * Getter for journal entry date.
+	 * @return date The date of the journal entry.
+	 */
+	public String getDate(String name) {
+		FlatFile fileManager = new FlatFile();
+		String[] readFile = fileManager.readJournalArray(name);
+		this.date = readFile[0];
+		return this.date;
+	}
+	
+	/**
+	 * Getter for journal entry date.
 	 * @return time The time of the journal entry.
 	 */
 	public String getTime() {
 		return this.time;
 	}
+	
+	/**
+	 * Getter for journal entry date.
+	 * @return time The time of the journal entry.
+	 */
+	public String getTime(String name) {
+		FlatFile fileManager = new FlatFile();
+		String[] readFile = fileManager.readJournalArray(name);
+		this.time = readFile[1];
+		return this.time;
+	}
+	
 	/**
 	 * Getter for journal entry title.
 	 * @return title The title of the journal entry.
@@ -203,13 +226,48 @@ class JournalEntry {
 	public String getTitle() {
 		return this.title;
 	}
+	
+	/**
+	 * Getter for journal entry title.
+	 * @return title The title of the journal entry.
+	 */
+	public String getTitle(String name) {
+		FlatFile fileManager = new FlatFile();
+		String[] readFile = fileManager.readJournalArray(name);
+		if (readFile[3] == null) {
+			this.title ="";
+		}
+		else {
+			this.title = readFile[2];
+		}
+		return this.title;
+	}
+	
 	/**
 	 * Getter for journal entry contents.
 	 * @return contents The contents of the journal entry.
 	 */
 	public String getContents() {
+		
 		return this.contents;
 	}
+	
+	/**
+	 * Getter for journal entry contents.
+	 * @return contents The contents of the journal entry.
+	 */
+	public String getContents(String name) {
+		FlatFile fileManager = new FlatFile();
+		String[] readFile = fileManager.readJournalArray(name);
+		if (readFile[3] == null) {
+			this.contents = readFile[2];
+		}
+		else {
+			this.contents = readFile[3];
+		}
+		return this.contents;
+	}
+	
 	/**
 	 * Getter for journal entry file name.
 	 * @return fileName The file name of the journal entry.
@@ -258,18 +316,41 @@ class JournalEntry {
 		this.fileName = fileName;
 	}
 	
+//	/**
+//	 * Method that creates a file name for a journal entry based on the title and sets the file name for the journal entry.
+//	 */
+//	public void createFileName() {
+//		final String DELIMITERS = "[ @<>{}#$+%`~&*/.!?\\\\-]";//delimiters for file name
+//		String fileName = "";//initial file name 
+//		String oldTitle = getTitle();//initializing title conversion
+//		String[] titleArray = oldTitle.split(DELIMITERS);//creating string array based on delimiters
+//		for (int i = 0; i < titleArray.length; i++) {
+//			fileName = fileName + titleArray[i];//appending string array contents to file name
+//		}
+//		setFileName(fileName);//setting file name
+//	}
+	
 	/**
 	 * Method that creates a file name for a journal entry based on the title and sets the file name for the journal entry.
+	 * This method also creates a file name based on the first 3 words of the entry contents if no title is provided.
 	 */
 	public void createFileName() {
 		final String DELIMITERS = "[ @<>{}#$+%`~&*/.!?\\\\-]";//delimiters for file name
 		String fileName = "";//initial file name 
-		String oldTitle = getTitle();//initializing title conversion
-		String[] titleArray = oldTitle.split(DELIMITERS);//creating string array based on delimiters
-		for (int i = 0; i < titleArray.length; i++) {
-			fileName = fileName + titleArray[i];//appending string array contents to file name
+		if (getTitle().equals("")) {//if no title is provided
+			String contents = getContents();//initializing contents conversion
+			String[] contentsArray = contents.split(DELIMITERS);//creating string array based on delimiters
+			fileName = fileName + contentsArray[0];//appending first word of contents to file name
+			setFileName(fileName);//setting file name
+		} else { //if title is provided
+			String oldTitle = getTitle();//initializing title conversion
+			String[] titleArray = oldTitle.split(DELIMITERS);//creating string array based on delimiters
+			for (int i = 0; i < titleArray.length; i++) {
+				fileName = fileName + titleArray[i];//appending string array contents to file name
+			}
+			setFileName(fileName);//setting file name
 		}
-		setFileName(fileName);//setting file name
+		
 	}
 	
 }
