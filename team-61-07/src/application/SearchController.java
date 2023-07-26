@@ -5,7 +5,11 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -17,6 +21,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -30,6 +35,9 @@ public class SearchController implements Initializable{
 	
 	@FXML
     private ListView<String> listView;
+	
+	 @FXML
+	 private TextField searchBar;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -37,6 +45,14 @@ public class SearchController implements Initializable{
 		listView.getItems().addAll(search.getEntryList());
 	}
 	
+	@FXML
+    void searchClicked(ActionEvent event) throws Exception {
+		ArrayList<String> filterWords;
+		filterWords = search.searchTitles(searchBar.getText(), search.getEntryList());
+		listView.getItems().clear();
+		listView.getItems().addAll(filterWords);
+    }
+
 	@FXML
     void rowClicked(MouseEvent event) throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/journalPage.fxml"));
@@ -55,6 +71,7 @@ public class SearchController implements Initializable{
 		stage.setTitle(title);
 		stage.show();
     }
+	
 	/**
      * Returns to the homepage
      * @param event The action that will happen when the login button is clicked

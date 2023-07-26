@@ -2,6 +2,7 @@ package application;
 
 import java.io.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Experimental test class of the search process using the FlatFile, JournalEntry, and Journal classes.
@@ -14,7 +15,10 @@ public class ExperimentalJournalSearch {
 		//DEBUG: the scanner input stuff is supposed to represent the text boxes in the program
 		
 		SearchEntry searcher = new SearchEntry();
-		System.out.println(searcher.getEntryList());
+		ArrayList<String> words;
+		words = searcher.searchTitles("q", searcher.getEntryList());
+		System.out.println(words);
+		//System.out.println(searcher.getEntryList().size());
 //		Scanner input = new Scanner(System.in);//creating Scanner object
 //		ArrayList<JournalEntry> entryList = searcher.createEntryList();//creating arraylist of entries
 //		
@@ -113,11 +117,15 @@ class SearchEntry {
 	 * @param entryList Arraylist of JournalEntry objects.
 	 * @return matchingTitles ArrayList of JournalEntry objects containing the search keyword in their titles.
 	 */
-	public ArrayList<JournalEntry> searchTitles(String keyword, ArrayList<JournalEntry> entryList) throws Exception{
-		ArrayList<JournalEntry> matchingTitles = new ArrayList<JournalEntry>();
+	public ArrayList<String> searchTitles(String keyword, ArrayList<String> entryList) throws Exception{
+		ArrayList<String> matchingTitles = new ArrayList<String>();
 		for (int i = 0; i < entryList.size(); i++) {
-			if (entryList.get(i).getTitle().contains(keyword) == true) {
+			if (entryList.get(i).contains(keyword) == true) {
 				matchingTitles.add(entryList.get(i));//adding journal entry to matching titles
+				//System.out.println(matchingTitles);
+			}
+			else {
+				//System.out.println("Not found");
 			}
 		}
 

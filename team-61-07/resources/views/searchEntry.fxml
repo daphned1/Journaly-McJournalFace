@@ -16,8 +16,8 @@
             <Font name="Bookman Old Style Italic" size="11.0" />
          </font>
       </Label>
-      <TextField layoutX="152.0" layoutY="8.0" prefHeight="26.0" prefWidth="303.0" promptText="Search " />
-      <Button layoutX="464.0" layoutY="7.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="60.0" text="Search" />
+      <TextField fx:id="searchBar" layoutX="152.0" layoutY="8.0" prefHeight="26.0" prefWidth="303.0" promptText="Search " />
+      <Button layoutX="464.0" layoutY="7.0" mnemonicParsing="false" onAction="#searchClicked" prefHeight="26.0" prefWidth="60.0" text="Search" />
       <Button layoutX="530.0" layoutY="7.0" mnemonicParsing="false" onAction="#searchCancelled" prefHeight="26.0" prefWidth="60.0" text="Cancel" />
       <ListView fx:id="listView" layoutX="35.0" layoutY="38.0" onMouseClicked="#rowClicked" prefHeight="313.0" prefWidth="537.0" />
    </children>
