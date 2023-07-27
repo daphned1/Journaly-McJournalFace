@@ -8,8 +8,7 @@ import java.text.*;
 /**
  * Main test class of the journal process using the FlatFile, JournalEntry, and Journal classes.
  * 
- */
-//public class JournalBackEnd {
+ *///public class JournalBackEnd {
 	
 //	public static void main(String[] args) throws Exception {
 //		
@@ -48,6 +47,7 @@ import java.text.*;
 //	}
 //
 //}
+
 
 /**
  * Class that creates a .txt file with a journal entry inside
@@ -139,6 +139,30 @@ class Journal {
 		
 	}
 	
+	/**
+	 * Method that exports a journal entry to a file and adding it to a list of entries.
+	 * @param entry JournalEntry Object for a journal entry
+	 * @throws FileNotFoundException 
+	 */
+	public void modifyEntry(JournalEntry entry) throws FileNotFoundException {
+		
+		entry.createFileName();//creating file name for journal entry
+		verifyListFile();//checking if list file exists
+		boolean entryFileExists = file.searchFile(entry.getFileName());
+		if (entryFileExists) {
+			createJournal(entry);//creating new journal entry into list if entry file does not exist
+		}
+		
+		file.renameFile(entry.getOldFileName(), entry.getFileName());
+		file.modifyFile(JOURNAL_ENTRY_LIST, entry.getFileName());
+		wipeEntry(entry.getFileName());
+		addToEntry(entry.getFileName(), entry.getDate());
+		addToEntry(entry.getFileName(), entry.getTime());
+		addToEntry(entry.getFileName(), entry.getTitle());
+		addToEntry(entry.getFileName(), entry.getContents());
+		
+	}
+	
 	//TODO: add a function that changes the name of the journal, add a function that deletes the journal
 }
 
@@ -152,7 +176,9 @@ class JournalEntry {
 	private String time;
 	private String title;
 	private String contents;
+	private String oldFileName;
 	private String fileName;//instance variables for journal entry
+	
 	
 	/**
 	 * Default constructor without arguments.
@@ -178,6 +204,21 @@ class JournalEntry {
 		this.time = inputTime;
 		this.title = inputTitle;
 		this.contents = inputContents;
+		this.fileName = inputFileName;
+	}
+	
+	/**
+	 * Constructor with arguments.
+	 * @param inputDate String used for the journal entry date.
+	 * @param inputTime String used for the journal entry time 
+	 * @param inputTitle String used for the title of the journal entry.
+	 * @param inputContents String used for the journal entry contents.
+	 * @param inputFileName String used for the journal entry file name for export.
+	 */
+	public JournalEntry(String inputDate, String inputTime, String inputTitle, String inputFileName) {
+		this.date = inputDate;
+		this.time = inputTime;
+		this.title = inputTitle;
 		this.fileName = inputFileName;
 	}
 	
@@ -264,6 +305,9 @@ class JournalEntry {
 		}
 		else {
 			this.contents = readFile[3];
+			if (!fileManager.getContent().isEmpty()) {
+				contents += fileManager.toString();
+			}
 		}
 		return this.contents;
 	}
@@ -274,6 +318,17 @@ class JournalEntry {
 	 */
 	public String getFileName() {
 		return this.fileName;
+	}
+	
+	/**
+	 * Getter for journal entry file name.
+	 * @return fileName The file name of the journal entry.
+	 */
+	public String getOldFileName() {
+		FlatFile fileManager = new FlatFile();
+		String[] readFile = fileManager.readJournalArray("!!!listOfAllJournalEntries");
+		oldFileName = readFile[0];
+		return this.oldFileName;
 	}
 	
 	/**

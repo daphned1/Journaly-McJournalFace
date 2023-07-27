@@ -11,6 +11,9 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
+import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXTimePicker;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -21,8 +24,10 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class SearchController implements Initializable{
@@ -32,12 +37,26 @@ public class SearchController implements Initializable{
 	Stage stage;
 	JournalController journalController;
 	JournalEntry entry = new JournalEntry();
+	String fileName ="";
 	
 	@FXML
     private ListView<String> listView;
 	
-	 @FXML
-	 private TextField searchBar;
+	@FXML
+	private TextField searchBar;
+	
+	// Journal Entry
+	@FXML
+    private TextArea journalContentPicker;
+
+    @FXML
+    private JFXDatePicker journalDatePicker;
+
+    @FXML
+    private TextField titlePicker;
+
+    @FXML
+    private JFXTimePicker journalTimePicker;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -55,6 +74,7 @@ public class SearchController implements Initializable{
 
 	@FXML
     void rowClicked(MouseEvent event) throws IOException {
+		
 		FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/journalPage.fxml"));
     	Parent root = loader.load();
     	journalController = loader.getController();
@@ -70,7 +90,16 @@ public class SearchController implements Initializable{
 		stage.setScene(scene);
 		stage.setTitle(title);
 		stage.show();
+		
     }
+	
+//	public void setName(String name) {
+//		fileName = name;
+//	}
+//	
+//	public String getName() {
+//		return fileName;
+//	}
 	
 	/**
      * Returns to the homepage
@@ -88,5 +117,6 @@ public class SearchController implements Initializable{
 		stage.setTitle(title);
 		stage.show();
     }
+
 
 }

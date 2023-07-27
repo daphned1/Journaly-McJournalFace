@@ -18,11 +18,12 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class JournalController {
-	JournalEntry userJournal;
 	Journal journalManager = new Journal();
+	JournalEntry userJournal = new JournalEntry();
 
-	
+	SearchController searchController;
 	private final static String title = "Journaly McJournalFace";
+	String fileTitle ="";
 	// From Journal Entry Page
     @FXML
     public JFXDatePicker datePicker;
@@ -32,6 +33,16 @@ public class JournalController {
     public JFXTimePicker timePicker;
     @FXML
     public TextArea journalContent;
+    
+    // From Edit Journal Page 
+    @FXML
+    private TextField editTitle;
+
+    @FXML
+    private JFXDatePicker editDatePicker;
+
+    @FXML
+    private JFXTimePicker editTimePicker;
     
  // Journal Entry Page
     /**
@@ -100,10 +111,51 @@ public class JournalController {
     /**
      * Closes the saving error journal pop-up 
      * @param event The action that will happen when the login button is clicked
-     * @throws IOException The error that will be thrown when an error occurs in this method
      */
     @FXML
     void okError(ActionEvent event) {
+    	Node source = (Node) event.getSource();
+    	Stage stage = (Stage) source.getScene().getWindow();
+    	stage.close();
+    }
+    
+    /**
+     * Opens the edit page 
+     * @param event The action that will happen when the login button is clicked
+     * @throws IOException The error that will be thrown when an error occurs in this method
+     */
+    @FXML
+    void editButton(ActionEvent event) throws IOException {
+    	// If there is no value for date or time, show the error pop-up
+    	if (datePicker.getValue() == null && timePicker.getValue() == null) {
+    		URL urlRoot = getClass().getClassLoader().getResource("views/saveJournalError.fxml");
+    		Parent root = FXMLLoader.load(urlRoot);
+    		
+    		Scene scene = new Scene (root, 292, 170);
+    		Stage stage = new Stage();
+    		stage.initModality(Modality.APPLICATION_MODAL);
+    		stage.setScene(scene);
+    		stage.showAndWait();
+    	}
+    	else {
+    		userJournal = new JournalEntry(datePicker.getValue().toString(), timePicker.getValue().toString(), journalTitle.getText(), journalContent.getText(), "tempFileName");
+        	journalManager.modifyEntry(userJournal);
+        	
+    		FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/editPopup.fxml"));
+        	Parent root = loader.load();
+    		
+    		Scene scene = new Scene (root, 220, 178);
+    		Stage stage = new Stage();
+    		stage.initModality(Modality.APPLICATION_MODAL);
+    		stage.setScene(scene);
+    		stage.showAndWait();
+    	}
+    }
+    
+    // Edit Journal Page 
+    
+    @FXML
+    void cancelClicked(ActionEvent event) {
     	Node source = (Node) event.getSource();
     	Stage stage = (Stage) source.getScene().getWindow();
     	stage.close();
