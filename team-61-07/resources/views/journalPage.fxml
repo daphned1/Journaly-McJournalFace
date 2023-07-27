@@ -12,9 +12,9 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.JournalController">
    <children>
       <TextArea fx:id="journalContent" layoutX="37.0" layoutY="110.0" prefHeight="262.0" prefWidth="523.0" promptText="Type here" AnchorPane.bottomAnchor="28.0" AnchorPane.leftAnchor="37.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="110.0" />
-      <AnchorPane layoutX="38.0" layoutY="20.0" prefHeight="53.0" prefWidth="523.0" AnchorPane.leftAnchor="38.0" AnchorPane.rightAnchor="0.0">
+      <AnchorPane layoutX="38.0" layoutY="20.0" prefHeight="80.0" prefWidth="562.0" AnchorPane.leftAnchor="38.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <Button layoutY="1.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="50.0" text="Edit" AnchorPane.leftAnchor="0.0">
+            <Button layoutY="1.0" mnemonicParsing="false" onAction="#editButton" prefHeight="25.0" prefWidth="50.0" text="Edit" AnchorPane.leftAnchor="0.0">
                <font>
                   <Font size="12.0" />
                </font>
@@ -31,6 +31,7 @@
             </Button>
             <JFXDatePicker fx:id="datePicker" layoutX="419.0" layoutY="16.0" prefHeight="15.0" prefWidth="105.0" />
             <TextField fx:id="journalTitle" layoutX="143.0" layoutY="29.0" prefHeight="25.0" prefWidth="259.0" promptText="(Optional Title)" />
+            <JFXTimePicker fx:id="timePicker" layoutX="419.0" layoutY="42.0" prefHeight="25.0" prefWidth="105.0" />
          </children>
       </AnchorPane>
       <Label layoutX="455.0" layoutY="13.0" text="Journaly McJournalFace" AnchorPane.rightAnchor="40.0">
@@ -38,7 +39,6 @@
             <Font size="10.0" />
          </font>
       </Label>
-      <JFXTimePicker fx:id="timePicker" layoutX="455.0" layoutY="62.0" prefHeight="25.0" prefWidth="105.0" />
       <Button layoutX="38.0" layoutY="74.0" mnemonicParsing="false" onAction="#saveJournalEntry" prefHeight="25.0" prefWidth="105.0" text="Save" AnchorPane.leftAnchor="38.0">
          <font>
             <Font size="12.0" />

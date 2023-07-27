@@ -16,6 +16,7 @@ import java.util.Scanner;
  * (implemented by Hayk/Richie)
  */
 class FlatFile {
+	ArrayList<String> content = new ArrayList<String>();
 	// this is a test of my git, sup guys :D
 	/**
 	 * Method that searches for a flat file.
@@ -66,14 +67,44 @@ class FlatFile {
 			int i = 0;
 			Scanner readLines = new Scanner(new File(name + ".txt"));//Scanner to read file lines
 			while (readLines.hasNext()) {
-				journalDetails[i] = readLines.nextLine();
-				i++;
+				if (i >= 4) {
+					readContent(readLines.nextLine());
+					i++;
+				}
+				else {
+					journalDetails[i] = readLines.nextLine();
+					i++;
+				}
 			}
 			readLines.close();
 		} catch (IOException e) {
 			e.printStackTrace();//if the file does not exist
 		}
 		return journalDetails;
+	}
+	
+	public void readContent(String words) {
+		content.add(words);
+		//return content;
+	}
+	
+	public ArrayList<String> getContent() {
+		return content;
+	}
+	
+	@Override
+	public String toString() {
+		String s ="";
+		for (int i = 0; i < getContent().size(); i ++) {
+			s += "\n" + getContent().get(i);
+		}
+		return s;
+	}
+	
+	public void renameFile(String oldName, String newName) {
+		File file = new File(oldName + ".txt");
+		File rename = new File(newName + ".txt");
+		file.renameTo(rename);
 	}
 	
 	/**
@@ -102,6 +133,8 @@ class FlatFile {
 			e.printStackTrace();
 		}
 	}
+	
+	
 	/**
 	 * Method that adds a line to a flatfile instead of replacing it
 	 * @param name String input used for the file name 
@@ -132,6 +165,31 @@ class FlatFile {
 		String output = check.substring(0, check.indexOf(text)) + check.substring(check.indexOf(text)+text.length());;
 		writeFile(name, output);
 	}
+	
+	public void modifyFile(String name, String newString) throws FileNotFoundException {
+		String oldContent = "";
+		FileReader fReader = new FileReader(name + ".txt");
+		BufferedReader reader = new BufferedReader(fReader);
+		String line;
+		try {
+			line = reader.readLine();
+			while (line != null) {
+				oldContent = oldContent + " " + line + " ";
+				line = reader.readLine();
+			}
+  			String newContent = oldContent.replace(oldContent, newString);
+			
+			FileWriter writer = new FileWriter(name + ".txt");
+			writer.write(newContent);
+			reader.close();
+			writer.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		
+	}
+	
 	/**
 	 * (currently unused) Method that prints the contents of a file into the program.
 	 * @param name String input used to find the file to print

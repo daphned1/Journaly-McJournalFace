@@ -14,10 +14,23 @@ public class ExperimentalJournalSearch {
 		
 		//DEBUG: the scanner input stuff is supposed to represent the text boxes in the program
 		
-		SearchEntry searcher = new SearchEntry();
-		ArrayList<String> words;
-		words = searcher.searchTitles("q", searcher.getEntryList());
-		System.out.println(words);
+//		SearchEntry searcher = new SearchEntry();
+//		ArrayList<String> words;
+//		words = searcher.searchTitles("q", searcher.getEntryList());
+//		System.out.println(words);
+		
+		FlatFile a = new FlatFile();
+		ArrayList<String> s = new ArrayList<String>();
+		a.renameFile("ds", "pp");
+		//a.readJournalArray("qwewq");
+		
+		//System.out.println(a.readJournalArray("qwewq"));
+		//s = a.getContent();
+		//System.out.println(a.toString());
+		//a.toString();
+//		if (a.getContent().isEmpty()) {
+//			System.out.println(true);
+//		}
 		//System.out.println(searcher.getEntryList().size());
 //		Scanner input = new Scanner(System.in);//creating Scanner object
 //		ArrayList<JournalEntry> entryList = searcher.createEntryList();//creating arraylist of entries
