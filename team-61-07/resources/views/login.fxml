@@ -19,15 +19,20 @@
             <Font name="Bookman Old Style Italic" size="16.0" />
          </font>
       </Label>
-      <Rectangle arcHeight="5.0" fill="#edf6ff" height="140.0" layoutX="201.0" layoutY="130.0" smooth="false" stroke="BLACK" strokeType="INSIDE" width="199.0" />
+      <Rectangle arcHeight="5.0" fill="#edf6ff" height="155.0" layoutX="201.0" layoutY="130.0" smooth="false" stroke="BLACK" strokeType="INSIDE" width="199.0" />
       <Label layoutX="218.0" layoutY="143.0" text="Your Password">
          <font>
             <Font name="Calibri Italic" size="12.0" />
          </font>
       </Label>
-      <Button layoutX="218.0" layoutY="203.0" mnemonicParsing="false" onAction="#loginClicked" text="Login" />
-      <Button layoutX="277.0" layoutY="203.0" mnemonicParsing="false" onAction="#forgotPassClicked" text="Forgot Password" />
+      <Button layoutX="218.0" layoutY="211.0" mnemonicParsing="false" onAction="#loginClicked" text="Login" />
+      <Button layoutX="277.0" layoutY="211.0" mnemonicParsing="false" onAction="#forgotPassClicked" text="Forgot Password" />
       <PasswordField fx:id="passwordField" layoutX="219.0" layoutY="166.0" prefHeight="25.0" prefWidth="163.0" />
-      <Button layoutX="219.0" layoutY="235.0" mnemonicParsing="false" onAction="#changePasswordClicked" prefHeight="25.0" prefWidth="163.0" text="Change Password" />
+      <Button layoutX="219.0" layoutY="243.0" mnemonicParsing="false" onAction="#changePasswordClicked" prefHeight="25.0" prefWidth="163.0" text="Change Password" />
+      <Label fx:id="wrongPass" layoutX="219.0" layoutY="192.0" prefHeight="17.0" prefWidth="163.0" textFill="#ff0808">
+         <font>
+            <Font name="Calibri Italic" size="12.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
