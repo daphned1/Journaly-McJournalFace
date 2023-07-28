@@ -40,6 +40,8 @@ public class LoginController{
 	// From Login Page
 	@FXML
 	private PasswordField passwordField;
+	@FXML
+    private Label wrongPass;
 	
 	//From First time Change Password FXML
 	@FXML
@@ -101,6 +103,10 @@ public class LoginController{
     		stage.setScene(scene);
     		stage.setTitle(title);
     		stage.show();
+    	}
+    	
+    	else {
+    		wrongPass.setText("Wrong Password. Try Again");
     	}
     }
     
