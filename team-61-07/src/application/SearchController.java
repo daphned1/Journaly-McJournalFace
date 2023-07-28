@@ -57,13 +57,21 @@ public class SearchController implements Initializable{
 
     @FXML
     private JFXTimePicker journalTimePicker;
-
+    
+    /**
+     * Initalizes the list 
+     */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
 		listView.getItems().addAll(search.getEntryList());
 	}
 	
+	/**
+     * Searching for the journal entry
+     * @param event The action that will happen when the search button is clicked
+     * @throws IOException The error that will be thrown when an error occurs in this method 
+     */
 	@FXML
     void searchClicked(ActionEvent event) throws Exception {
 		ArrayList<String> filterWords;
@@ -71,7 +79,12 @@ public class SearchController implements Initializable{
 		listView.getItems().clear();
 		listView.getItems().addAll(filterWords);
     }
-
+	
+	/**
+     * Clicking on journal entry
+     * @param event The action that will happen when the row  is clicked
+     * @throws IOException The error that will be thrown when an error occurs in this method 
+     */
 	@FXML
     void rowClicked(MouseEvent event) throws IOException {
 		
@@ -84,6 +97,7 @@ public class SearchController implements Initializable{
 		journalController.timePicker.setValue(LocalTime.parse(entry.getTime(name)));
 		journalController.journalTitle.setText(entry.getTitle(name));
 		journalController.journalContent.setText(entry.getContents(name));
+		journalController.setOldName(name);
 		
 		Stage stage= (Stage) ((Node) event.getSource()).getScene().getWindow();
 		Scene scene = new Scene(root, 600, 400);
@@ -92,14 +106,6 @@ public class SearchController implements Initializable{
 		stage.show();
 		
     }
-	
-//	public void setName(String name) {
-//		fileName = name;
-//	}
-//	
-//	public String getName() {
-//		return fileName;
-//	}
 	
 	/**
      * Returns to the homepage

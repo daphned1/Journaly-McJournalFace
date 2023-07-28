@@ -269,6 +269,7 @@ public class LoginController{
      */
     @FXML
     void newEntryClicked(ActionEvent event) throws IOException {
+    	userJournal = new JournalEntry();
     	FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/journalPage.fxml"));
     	Parent root = loader.load();
 		journalController = loader.getController();

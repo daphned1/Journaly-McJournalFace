@@ -22,7 +22,7 @@
                <children>
                   <VBox layoutX="77.0" layoutY="41.0" prefHeight="72.0" prefWidth="201.0" spacing="20.0">
                      <children>
-                        <TextField fx:id="editTitle" promptText="(Optional Title)" />
+                        <TextField fx:id="titleEdit" promptText="(Optional Title)" />
                         <JFXDatePicker fx:id="editDatePicker" prefHeight="25.0" prefWidth="217.0" promptText="Enter New Date" />
                         <JFXTimePicker fx:id="editTimePicker" prefHeight="25.0" prefWidth="202.0" promptText="Enter New Time" />
                      </children>

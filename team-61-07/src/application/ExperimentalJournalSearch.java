@@ -8,9 +8,9 @@ import java.util.stream.Collectors;
  * Experimental test class of the search process using the FlatFile, JournalEntry, and Journal classes.
  * 
  */
-public class ExperimentalJournalSearch {
+//public class ExperimentalJournalSearch {
 	
-	public static void main(String[] args) throws Exception {
+//	public static void main(String[] args) throws Exception {
 		
 		//DEBUG: the scanner input stuff is supposed to represent the text boxes in the program
 		
@@ -19,9 +19,10 @@ public class ExperimentalJournalSearch {
 //		words = searcher.searchTitles("q", searcher.getEntryList());
 //		System.out.println(words);
 		
-		FlatFile a = new FlatFile();
-		ArrayList<String> s = new ArrayList<String>();
-		a.renameFile("ds", "pp");
+//		FlatFile a = new FlatFile();
+//		ArrayList<String> s = new ArrayList<String>();
+//		a.renameFile("ds", "pp");
+		//System.out.println(a.numList("!!!listOfAllJournalEntries"));
 		//a.readJournalArray("qwewq");
 		
 		//System.out.println(a.readJournalArray("qwewq"));
@@ -50,9 +51,9 @@ public class ExperimentalJournalSearch {
 //		System.out.print("List of entries with matching contents: ");
 //		searcher.printTitles(resultContents);
 //		System.out.println();
-	}
+//	}
 
-}
+//}
 
 /**
  * Experimental class that handles searching for an entry given a list of journal titles.
@@ -70,6 +71,10 @@ class SearchEntry {
 		file = new FlatFile();
 	}
 	
+	/**
+	 * Getting the list of journals 
+	 * @return entries An arraylist of the entries 
+	 */
 	public ArrayList<String> getEntryList() {
 		ArrayList<String> entries = new ArrayList<String>();
 		try {
