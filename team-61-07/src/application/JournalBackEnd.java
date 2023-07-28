@@ -147,14 +147,14 @@ class Journal {
 	public void modifyEntry(JournalEntry entry) throws FileNotFoundException {
 		
 		entry.createFileName();//creating file name for journal entry
-		verifyListFile();//checking if list file exists
-		boolean entryFileExists = file.searchFile(entry.getFileName());
-		if (entryFileExists) {
-			createJournal(entry);//creating new journal entry into list if entry file does not exist
-		}
+//		verifyListFile();//checking if list file exists
+//		boolean entryFileExists = file.searchFile(entry.getFileName());
+//		if (entryFileExists) {
+//			createJournal(entry);//creating new journal entry into list if entry file does not exist
+//		}
 		
 		file.renameFile(entry.getOldFileName(), entry.getFileName());
-		file.modifyFile(JOURNAL_ENTRY_LIST, entry.getFileName());
+		file.modifyFile(JOURNAL_ENTRY_LIST, entry.getFileName(), entry.getOldFileName());
 		wipeEntry(entry.getFileName());
 		addToEntry(entry.getFileName(), entry.getDate());
 		addToEntry(entry.getFileName(), entry.getTime());
@@ -172,12 +172,14 @@ class Journal {
  * (implemented by Richie)
  */
 class JournalEntry {
+	FlatFile file = new FlatFile();
 	private String date;
 	private String time;
 	private String title;
 	private String contents;
 	private String oldFileName;
 	private String fileName;//instance variables for journal entry
+	final String JOURNAL_ENTRY_LIST = "!!!listOfAllJournalEntries";//initializing variables
 	
 	
 	/**
@@ -312,6 +314,8 @@ class JournalEntry {
 		return this.contents;
 	}
 	
+	
+	
 	/**
 	 * Getter for journal entry file name.
 	 * @return fileName The file name of the journal entry.
@@ -324,12 +328,19 @@ class JournalEntry {
 	 * Getter for journal entry file name.
 	 * @return fileName The file name of the journal entry.
 	 */
+	public String setOldFileName(String name) {
+		oldFileName = name;
+		return oldFileName;
+	}
+	
+	/**
+	 * Getter for journal entry file name.
+	 * @return fileName The file name of the journal entry.
+	 */
 	public String getOldFileName() {
-		FlatFile fileManager = new FlatFile();
-		String[] readFile = fileManager.readJournalArray("!!!listOfAllJournalEntries");
-		oldFileName = readFile[0];
 		return this.oldFileName;
 	}
+	
 	
 	/**
 	 * Setter for journal entry date.
@@ -370,20 +381,6 @@ class JournalEntry {
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
 	}
-	
-//	/**
-//	 * Method that creates a file name for a journal entry based on the title and sets the file name for the journal entry.
-//	 */
-//	public void createFileName() {
-//		final String DELIMITERS = "[ @<>{}#$+%`~&*/.!?\\\\-]";//delimiters for file name
-//		String fileName = "";//initial file name 
-//		String oldTitle = getTitle();//initializing title conversion
-//		String[] titleArray = oldTitle.split(DELIMITERS);//creating string array based on delimiters
-//		for (int i = 0; i < titleArray.length; i++) {
-//			fileName = fileName + titleArray[i];//appending string array contents to file name
-//		}
-//		setFileName(fileName);//setting file name
-//	}
 	
 	/**
 	 * Method that creates a file name for a journal entry based on the title and sets the file name for the journal entry.

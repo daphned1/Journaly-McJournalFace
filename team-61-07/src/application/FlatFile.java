@@ -83,24 +83,41 @@ class FlatFile {
 		return journalDetails;
 	}
 	
+	/**
+	 * Setting the extra contents 
+	 * @param words The content 
+	 */
 	public void readContent(String words) {
 		content.add(words);
 		//return content;
 	}
 	
+	/**
+	 * Getting the content
+	 * @return content The content 
+	 */
 	public ArrayList<String> getContent() {
 		return content;
 	}
 	
+	/**
+	 * Formatting the arraylist
+	 * @return s The format 
+	 */
 	@Override
 	public String toString() {
 		String s ="";
 		for (int i = 0; i < getContent().size(); i ++) {
-			s += "\n" + getContent().get(i);
+			s += getContent().get(i) + "\n";
 		}
 		return s;
 	}
 	
+	/**
+	 * Method to rename files 
+	 * @param oldName Gets the old filename 
+	 * @param newName Gets the new filename 
+	 */
 	public void renameFile(String oldName, String newName) {
 		File file = new File(oldName + ".txt");
 		File rename = new File(newName + ".txt");
@@ -160,27 +177,48 @@ class FlatFile {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * Removes the text 
+	 * @param name File of what needs to be removed 
+	 * @param text Text to be removed 
+	 * @throws IOException
+	 */
 	public void removeText(String name, String text) throws IOException {
 		String check = printFile(name);
 		String output = check.substring(0, check.indexOf(text)) + check.substring(check.indexOf(text)+text.length());;
 		writeFile(name, output);
 	}
 	
-	public void modifyFile(String name, String newString) throws FileNotFoundException {
+	/**
+	 * Modifying an existing file 
+	 * @param name The file name
+	 * @param newString New word 
+	 * @param oldString The old file
+	 * @throws FileNotFoundException
+	 */
+	public void modifyFile(String name, String newString, String oldString) throws FileNotFoundException {
 		String oldContent = "";
 		FileReader fReader = new FileReader(name + ".txt");
 		BufferedReader reader = new BufferedReader(fReader);
 		String line;
+		String current;
 		try {
 			line = reader.readLine();
+			current = line;
 			while (line != null) {
-				oldContent = oldContent + " " + line + " ";
+				content.add(line);
 				line = reader.readLine();
 			}
-  			String newContent = oldContent.replace(oldContent, newString);
 			
+			for (int i = 0; i < content.size(); i++) {
+				if (content.get(i).equals(oldString)) {
+					content.remove(i);
+					content.add(i, newString);
+				}
+			}
 			FileWriter writer = new FileWriter(name + ".txt");
-			writer.write(newContent);
+			writer.write(toString());
 			reader.close();
 			writer.close();
 		} catch (IOException e) {
