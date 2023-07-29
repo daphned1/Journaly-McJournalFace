@@ -158,6 +158,18 @@ class FlatFile {
 	}
 	
 	/**
+	 * Formatting the arraylist
+	 * @return s The format 
+	 */
+	public String arrayListFormat() {
+		String s ="";
+		for (int i = 0; i < getContent().size(); i ++) {
+			s += "\n" + getContent().get(i);
+		}
+		return s;
+	}
+	
+	/**
 	 * Method to rename files 
 	 * @param oldName Gets the old filename 
 	 * @param newName Gets the new filename 
