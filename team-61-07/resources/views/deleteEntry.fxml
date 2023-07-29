@@ -7,22 +7,21 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<DialogPane xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<DialogPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.JournalController">
    <content>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="292.0">
          <children>
-            <HBox layoutX="66.0" layoutY="123.0" spacing="10.0">
-               <children>
-                  <Button mnemonicParsing="false" prefWidth="75.0" text="Cancel" />
-                  <Button mnemonicParsing="false" prefWidth="75.0" text="Next" />
-               </children>
-            </HBox>
-            <Text layoutX="104.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Delete Entry?">
+            <HBox layoutX="66.0" layoutY="123.0" spacing="10.0" />
+            <Text layoutX="94.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Entry Deleted">
                <font>
-                  <Font size="16.0" />
+                  <Font name="Bookman Old Style Italic" size="16.0" />
                </font>
             </Text>
-            <Text layoutX="26.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Are you sure? You can't undo these changes." wrappingWidth="244.21630859375" />
+            <Text layoutX="55.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your entry has been deleted." wrappingWidth="182.21630859375">
+               <font>
+                  <Font name="Bookman Old Style Italic" size="13.0" />
+               </font></Text>
+            <Button layoutX="109.0" layoutY="111.0" mnemonicParsing="false" onAction="#okDeleteEntry" prefWidth="75.0" text="OK" />
          </children>
       </AnchorPane>
    </content>

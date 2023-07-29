@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
  * 
  */
 //public class ExperimentalJournalSearch {
-	
+//	
 //	public static void main(String[] args) throws Exception {
 		
 		//DEBUG: the scanner input stuff is supposed to represent the text boxes in the program
@@ -20,6 +20,8 @@ import java.util.stream.Collectors;
 //		System.out.println(words);
 		
 //		FlatFile a = new FlatFile();
+		//a.deleteFile("fewq");
+//		a.removeFileFromList("!!!listOfAllJournalEntries", "ffwefew");
 //		ArrayList<String> s = new ArrayList<String>();
 //		a.renameFile("ds", "pp");
 		//System.out.println(a.numList("!!!listOfAllJournalEntries"));
@@ -52,7 +54,7 @@ import java.util.stream.Collectors;
 //		searcher.printTitles(resultContents);
 //		System.out.println();
 //	}
-
+//
 //}
 
 /**

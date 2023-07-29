@@ -163,6 +163,7 @@ class Journal {
 		
 	}
 	
+	
 	//TODO: add a function that changes the name of the journal, add a function that deletes the journal
 }
 
@@ -403,6 +404,16 @@ class JournalEntry {
 			setFileName(fileName);//setting file name
 		}
 		
+	}
+	
+	/**
+	 * Deletes the journal entry
+	 * @param theFileName The filename to delete
+	 * @throws IOException
+	 */
+	public void deleteEntry(String theFileName) throws IOException {
+		file.deleteFile(theFileName);
+		file.removeFileFromList(JOURNAL_ENTRY_LIST, theFileName);
 	}
 	
 }
