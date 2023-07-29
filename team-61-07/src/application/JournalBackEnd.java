@@ -309,13 +309,11 @@ class JournalEntry {
 		else {
 			this.contents = readFile[3];
 			if (!fileManager.getContent().isEmpty()) {
-				contents += fileManager.toString();
+				contents += fileManager.arrayListFormat();
 			}
 		}
 		return this.contents;
 	}
-	
-	
 	
 	/**
 	 * Getter for journal entry file name.
