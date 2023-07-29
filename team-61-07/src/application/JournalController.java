@@ -2,6 +2,8 @@ package application;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTimePicker;
@@ -25,6 +27,7 @@ public class JournalController {
 	JournalEntry userJournal = new JournalEntry();
 	
 	SearchController searchController;
+	LoginController loginController;
 	private final static String title = "Journaly McJournalFace";
 	String fileTitle ="";
 	// From Journal Entry Page
@@ -204,6 +207,53 @@ public class JournalController {
      */
     @FXML
     void cancelClicked(ActionEvent event) {
+    	Node source = (Node) event.getSource();
+    	Stage stage = (Stage) source.getScene().getWindow();
+    	stage.close();
+    }
+    
+    // Delete Journal Page 
+    /**
+     * Deletes a journal entry
+     * @param event The action that will happen when the delete button is clicked
+     * @throws IOException The error that will be thrown when an error occurs in this method 
+     */
+    @FXML
+    void deleteEntry(ActionEvent event) throws IOException {
+    	if (journalTitle.getText().isEmpty()) {
+    		userJournal.deleteEntry(getOldName());
+    	}
+    	else {
+        	userJournal.deleteEntry(journalTitle.getText());
+    	}
+    	
+    	
+    	URL urlRoot = getClass().getClassLoader().getResource("views/homepage.fxml");
+		Parent root = FXMLLoader.load(urlRoot);
+		Stage stage= (Stage) ((Node) event.getSource()).getScene().getWindow();
+		Scene scene = new Scene(root, 600, 400);
+		stage.setScene(scene);
+		stage.setTitle(title);
+		stage.show();
+		
+		// Shows pop-up 
+		FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/deleteEntry.fxml"));
+        root = loader.load();
+    		
+    	scene = new Scene (root, 292, 170);
+    	stage = new Stage();
+    	stage.initModality(Modality.APPLICATION_MODAL);
+    	stage.setScene(scene);
+    	stage.showAndWait();
+    }
+    
+    /**
+     * Exits the delete pop-up
+     * @param event The action that will happen when the OK button is clicked
+     * @throws IOException The error that will be thrown when an error occurs in this method 
+     */
+    @FXML
+    void okDeleteEntry(ActionEvent event) {
     	Node source = (Node) event.getSource();
     	Stage stage = (Stage) source.getScene().getWindow();
     	stage.close();

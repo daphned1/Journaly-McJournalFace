@@ -38,6 +38,50 @@ class FlatFile {
 	}
 	
 	/**
+	 * Deletes a file 
+	 * @param name The input for the file name 
+	 * @throws IOException
+	 */
+	public void deleteFile(String name) throws IOException {
+		File file = new File(name + ".txt");
+		file.delete();
+	}
+	
+	/**
+	 * Removes a file from the list of Journal Entries 
+	 * @param name The file name
+	 * @param word The journal entry title 
+	 * @throws FileNotFoundException
+	 */
+	public void removeFileFromList(String name, String word) throws FileNotFoundException {
+		//ArrayList<String> journalList = new ArrayList<String>();
+		String current = "";
+		FileReader fReader = new FileReader(name + ".txt");
+		BufferedReader reader = new BufferedReader(fReader);
+		try {
+			current = reader.readLine();
+			while (current != null) {
+				content.add(current);
+				current = reader.readLine();
+			}
+			
+			for (int i = 0; i < content.size(); i++) {
+				if (content.get(i).equals(word)) {
+					content.remove(i);
+				}
+			}
+			FileWriter writer = new FileWriter(name + ".txt");
+			writer.write(toString());
+			reader.close();
+			writer.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	/**
 	 * Method that creates a formatted array from the file contents for an account (password, security question, answer).
 	 * @param name String input used for the file name
 	 * @return accountDetails String array containing file contents for account
@@ -185,7 +229,7 @@ class FlatFile {
 	 * @throws IOException
 	 */
 	public void removeText(String name, String text) throws IOException {
-		String check = printFile(name);
+		String check = printFile(name + ".txt");
 		String output = check.substring(0, check.indexOf(text)) + check.substring(check.indexOf(text)+text.length());;
 		writeFile(name, output);
 	}
