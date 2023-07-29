@@ -117,6 +117,7 @@ public class LoginController{
      */
     @FXML
     void forgotPassClicked(ActionEvent event) throws IOException {
+    	
     	URL urlRoot = getClass().getClassLoader().getResource("views/forgetPassword.fxml");
 		Parent root = FXMLLoader.load(urlRoot);
 		
