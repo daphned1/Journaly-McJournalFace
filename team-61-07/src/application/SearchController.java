@@ -95,21 +95,32 @@ public class SearchController implements Initializable{
     	Parent root = loader.load();
     	journalController = loader.getController();
     	
-		String name = listView.getSelectionModel().getSelectedItem();
-		journalController.datePicker.setValue(LocalDate.parse(entry.getDate(name)));
-		journalController.timePicker.setValue(LocalTime.parse(entry.getTime(name)));
-		journalController.journalTitle.setText(entry.getTitle(name));
-		journalController.journalContent.setText(entry.getContents(name));
-		journalController.setOldName(name);
-		
-		
-		Stage stage= (Stage) ((Node) event.getSource()).getScene().getWindow();
-		Scene scene = new Scene(root, 600, 400);
-		stage.setScene(scene);
-		stage.setTitle(title);
-		stage.show();
+		String name = listView.getSelectionModel().getSelectedItem() + "";
+		if (isEqual(name)) {
+			errorSearch.setText("No Journal Entry Detected. Try Again. If list empty, create a new Journal.");
+		}
+		else {
+			name = listView.getSelectionModel().getSelectedItem();
+			journalController.datePicker.setValue(LocalDate.parse(entry.getDate(name)));
+			journalController.timePicker.setValue(LocalTime.parse(entry.getTime(name)));
+			journalController.journalTitle.setText(entry.getTitle(name));
+			journalController.journalContent.setText(entry.getContents(name));
+			journalController.setOldName(name);
+			Stage stage= (Stage) ((Node) event.getSource()).getScene().getWindow();
+			Scene scene = new Scene(root, 600, 400);
+			stage.setScene(scene);
+			stage.setTitle(title);
+			stage.show();
+		}
 		
     }
+	
+	boolean isEqual(String s) {
+		if (s.equals("null")) {
+			return true;
+		}
+		return false;
+	}
 	
 	/**
      * Returns to the homepage
