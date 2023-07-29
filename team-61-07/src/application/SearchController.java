@@ -23,6 +23,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -44,6 +45,8 @@ public class SearchController implements Initializable{
 	
 	@FXML
 	private TextField searchBar;
+	@FXML
+    private Label errorSearch;
 	
 	// Journal Entry
 	@FXML
@@ -91,13 +94,14 @@ public class SearchController implements Initializable{
 		FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/journalPage.fxml"));
     	Parent root = loader.load();
     	journalController = loader.getController();
+    	
 		String name = listView.getSelectionModel().getSelectedItem();
-		
 		journalController.datePicker.setValue(LocalDate.parse(entry.getDate(name)));
 		journalController.timePicker.setValue(LocalTime.parse(entry.getTime(name)));
 		journalController.journalTitle.setText(entry.getTitle(name));
 		journalController.journalContent.setText(entry.getContents(name));
 		journalController.setOldName(name);
+		
 		
 		Stage stage= (Stage) ((Node) event.getSource()).getScene().getWindow();
 		Scene scene = new Scene(root, 600, 400);
