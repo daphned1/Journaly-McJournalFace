@@ -31,5 +31,6 @@
       <PasswordField fx:id="oldPass" layoutX="283.0" layoutY="108.0" prefHeight="25.0" prefWidth="161.0" />
       <PasswordField fx:id="newPass" layoutX="283.0" layoutY="137.0" prefHeight="25.0" prefWidth="161.0" />
       <PasswordField fx:id="repeatNewPass" layoutX="283.0" layoutY="165.0" prefHeight="25.0" prefWidth="161.0" />
+      <Label fx:id="wrongPassLabel" layoutX="244.0" layoutY="325.0" textFill="#ff0b0b" />
    </children>
 </AnchorPane>
