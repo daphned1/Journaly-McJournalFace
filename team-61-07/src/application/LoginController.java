@@ -54,6 +54,8 @@ public class LoginController{
     private TextField securityQuestion;
     @FXML
     private TextField ansQuestion;
+    @FXML
+    private Label wrongPassLabel;
     
     // From Reset Password FXML
     @FXML
@@ -64,6 +66,8 @@ public class LoginController{
     private TextField resetSecQuestion;
     @FXML
     private TextField resetSecAnswer;
+    @FXML
+    private Label wrongFieldsLabel;
     
     // From Homepage 
     @FXML
@@ -121,7 +125,7 @@ public class LoginController{
     	URL urlRoot = getClass().getClassLoader().getResource("views/forgetPassword.fxml");
 		Parent root = FXMLLoader.load(urlRoot);
 		
-		Scene scene = new Scene (root, 265, 333);
+		Scene scene = new Scene (root, 265, 357);
 		Stage stage = new Stage();
 		stage.initModality(Modality.APPLICATION_MODAL);
 		stage.setScene(scene);
@@ -211,6 +215,18 @@ public class LoginController{
     		stage.show();
     		
     	}
+    	else if (!oldPass.getText().equals(user.getPassword())){
+    		wrongPassLabel.setText("Old password wrong.");
+    	}
+    	else if (!newPass.getText().equals(repeatNewPass.getText())) {
+    		wrongPassLabel.setText("Passwords don't match");
+    	}
+    	else if (securityQuestion.getText().isEmpty()) {
+    		wrongPassLabel.setText("Security Question cannot be empty.");
+    	}
+    	else if (ansQuestion.getText().isEmpty()) {
+    		wrongPassLabel.setText("Security Answer cannot be empty.");
+    	}
     }
     
     /**
@@ -246,13 +262,19 @@ public class LoginController{
     // Forget Password FXML Methods 
     @FXML
     void passResetSubmitClicked(ActionEvent event) {
-    	if (user.getAnswer().equals(resetSecAnswer.getText())) {
+    	if (user.getAnswer().equals(resetSecAnswer.getText()) && resetNewPass.getText().equals(resetRepeatPass.getText())) {
     		// Reset the password 
         	user.resetPassword(resetSecAnswer.getText(), resetNewPass.getText(), resetRepeatPass.getText(), resetSecQuestion.getText());
         	// Close pop-up once done
     		Node source = (Node) event.getSource();
         	Stage stage = (Stage) source.getScene().getWindow();
         	stage.close();
+    	}
+    	else if (!resetNewPass.getText().equals(resetRepeatPass.getText())) {
+    		wrongFieldsLabel.setText("New passwords don't match");
+    	}
+    	else if (!user.getAnswer().equals(resetSecAnswer.getText())) {
+    		wrongFieldsLabel.setText("Security Answers don't match");
     	}
     }
     
