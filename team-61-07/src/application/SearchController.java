@@ -34,11 +34,11 @@ import javafx.stage.Stage;
 public class SearchController implements Initializable{
 	
 	private final static String title = "Journaly McJournalFace";
-	SearchEntry search = new SearchEntry();
+	private SearchEntry search = new SearchEntry();
 	Stage stage;
-	JournalController journalController;
-	JournalEntry entry = new JournalEntry();
-	String fileName ="";
+	private JournalController journalController;
+	private JournalEntry entry = new JournalEntry();
+	private String fileName ="";
 	
 	@FXML
     private ListView<String> listView;

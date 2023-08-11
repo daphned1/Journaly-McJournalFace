@@ -27,15 +27,14 @@ import javafx.stage.Stage;
 
 public class LoginController{
 	
-	Account user = new Account();
-	JournalEntry userJournal;
-	Journal journalManager = new Journal();
-
-	
 	private final static String title = "Journaly McJournalFace";
 	
-	SearchController searchController;
-	JournalController journalController;
+	private Account user = new Account();
+	private JournalEntry userJournal;
+	private Journal journalManager = new Journal();
+	
+	private SearchController searchController;
+	private JournalController journalController;
 	
 	// From Login Page
 	@FXML
