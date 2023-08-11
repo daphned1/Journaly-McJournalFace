@@ -64,7 +64,7 @@ import java.util.stream.Collectors;
  */
 class SearchEntry {
 	private final String LIST_FILE = "!!!listOfAllJournalEntries";
-	FlatFile file;
+	private FlatFile file;
 	
 	/**
 	 * Constructor without arguments.

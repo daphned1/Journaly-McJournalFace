@@ -23,13 +23,13 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class JournalController {
-	Journal journalManager = new Journal();
-	JournalEntry userJournal = new JournalEntry();
+	private Journal journalManager = new Journal();
+	private JournalEntry userJournal = new JournalEntry();
 	
-	SearchController searchController;
-	LoginController loginController;
+	private SearchController searchController;
+	private LoginController loginController;
 	private final static String title = "Journaly McJournalFace";
-	String fileTitle ="";
+	private String fileTitle ="";
 	// From Journal Entry Page
     @FXML
     public JFXDatePicker datePicker;
